@@ -1,0 +1,6 @@
+{
+	"appId": "io.jonathan.fixme",
+	"appName": "Fixme",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

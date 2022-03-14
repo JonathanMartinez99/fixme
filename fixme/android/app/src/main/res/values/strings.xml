@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Fixme</string>
+    <string name="title_activity_main">Fixme</string>
+    <string name="package_name">io.jonathan.fixme</string>
+    <string name="custom_url_scheme">io.jonathan.fixme</string>
+</resources>
