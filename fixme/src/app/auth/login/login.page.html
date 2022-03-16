@@ -1,0 +1,29 @@
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label color="medium" position="floating">E-mail</ion-label>
+        <ion-input #email="ngModel" type="email" name="email" required [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="email.touched" color="danger" slot="end">El campo no puede quedar vacío.</ion-label>
+      <ion-item>
+        <ion-label color="medium" position="floating">Contraseña</ion-label>
+        <ion-input type="password" name="password" minlength="4" required [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-grid>
+      <ion-row>
+
+        <ion-col>
+          <ion-button shape="round" type="submit" color="primary" expand="block" [disabled]="loginForm.invalid">
+            <ion-icon name="log-in" slot="start"></ion-icon>
+            Iniciar sesión
+          </ion-button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>
