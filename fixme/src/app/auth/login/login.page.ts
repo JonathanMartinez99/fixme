@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { EmailValidator, NgForm, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserLogin } from '../interfaces/user-login';
 import { AuthService } from '../services/auth.service';
@@ -10,11 +11,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage implements OnInit {
 
+  @ViewChild('email') formEmail! : any;
+
   user:UserLogin = {
     email:'',
     password:''
   };
-
+  invalidCred = false;
+  error = '';
   constructor(private readonly authService:AuthService, private readonly router:Router) { }
 
   ngOnInit() {
@@ -24,8 +28,11 @@ export class LoginPage implements OnInit {
   login(){
 
     this.authService.login(this.user).subscribe({
-      next: () => this.router.navigate(['tabs/tab1']),
-      error: (error) => console.log(error.error.error)
+      next: () => {this.router.navigate(['tabs/tab1']); this.invalidCred=false;},
+      error: (error) => {
+        this.invalidCred=true;
+        this.error = error.error.error
+      }
 
     })
   }

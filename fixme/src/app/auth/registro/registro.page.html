@@ -1,0 +1,56 @@
+<ion-content class="ion-padding">
+  <ion-title class="titulo">¡Únete a Fixme!</ion-title>
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label color="medium" position="floating">Nombre y apellidos</ion-label>
+        <ion-input #nombre="ngModel" type="text" name="nombre"
+        required [(ngModel)]="user.nombre"
+        pattern="[A-z][A-z ]*"
+        ></ion-input>
+      </ion-item>
+      <ion-label *ngIf="nombre.touched && nombre.invalid" color="danger" slot="end">Por favor, introduce tu nombre.</ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="stacked">Fecha de nacimiento</ion-label>
+        <ion-input #fecha="ngModel" type="date" name="fecha" minDate={{fechaMinima}}
+        required [(ngModel)]="user.fechaNacimiento"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">E-mail</ion-label>
+        <ion-input #email="ngModel" type="email" name="email"
+        required [(ngModel)]="user.email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        ></ion-input>
+      </ion-item>
+      <ion-label *ngIf="email.touched && email.invalid" color="danger" slot="end">Por favor, introduce un e-mail.</ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">Contraseña</ion-label>
+        <ion-input type="password" name="password" minlength="8" required [(ngModel)]="user.password"
+        ></ion-input>
+      </ion-item>
+
+      <!-- <ion-label *ngIf="false" color="danger" slot="end"></ion-label> -->
+    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button shape="round" type="submit" color="main2" expand="block" [disabled]="registerForm.invalid">
+            <ion-icon name="log-in" slot="start"></ion-icon>
+            Registrarse
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="centrar">
+        <ion-col>
+          <ion-label [routerLink]="['/auth/login']" color="medium">¿Ya tienes una cuenta?</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

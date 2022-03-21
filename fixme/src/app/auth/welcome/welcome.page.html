@@ -3,36 +3,53 @@
     <ion-slide>
       <div class="slide">
         <img src="" />
-        <h2>Welcome</h2>
+        <h2>¡Bienvenido/a!</h2>
         <p>
-          The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a
-          demonstration of proper code use.
+          En <b>Fixme</b> ahora podrás comprar o vender tus objetos dañados o en mal estado.
         </p>
+
+        <ion-button shape="round" type="submit" color="light" expand="block">
+          <ion-icon name="logo-facebook" slot="start" color="primary"></ion-icon>
+          Continuar con Facebook
+        </ion-button>
+
+        <ion-button shape="round" type="submit" color="light" expand="block">
+          <ion-icon name="logo-google" slot="start" color="danger"></ion-icon>
+          Continuar con Google
+        </ion-button>
+
+        <ion-button (click)="toRegistro()" shape="round" type="submit" color="main2" expand="block">
+          <ion-icon name="mail" slot="start" color="light"></ion-icon>
+          Continuar con el e-mail
+        </ion-button>
+
+        <p>¿Ya tienes cuenta? <b (click)="toLogin()">Iniciar Sesión</b></p>
       </div>
     </ion-slide>
 
     <ion-slide>
       <img src="" />
-      <h2>What is Ionic?</h2>
+      <h2>¡Repáralo y vendelo de nuevo!</h2>
       <p>
-        <b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps
-        with web technologies like HTML, CSS, and JavaScript.
+        Saca <b>BENEFICIO</b> vendiendo los objetos que compres después de repararlos.
+        ¡Tu valoración de usuario se verá incrementada y tus productos serán recomendados!.
       </p>
     </ion-slide>
 
     <ion-slide>
       <img src="" />
-      <h2>What is Appflow?</h2>
+      <h2>Envialo o Entregalo</h2>
       <p>
-        <b>Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a
-        totally new level of app development agility to mobile dev teams.
+        Usa <b>Fixme</b> a tu manera. Podrás escoger entre enviar tu producto o entregarlo personalmente.
       </p>
     </ion-slide>
 
     <ion-slide>
       <img src="" />
-      <h2>Ready to Play?</h2>
-      <ion-button [routerLink]="['/tabs']" fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      <h2>¿Listo/a para empezar?</h2>
+      <ion-button (click)="toMain()" fill="clear">Registrate<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      <p>o bien</p>
+      <ion-button (click)="toMain()" fill="clear">Echa un vistazo<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
     </ion-slide>
   </ion-slides>
 </ion-content>

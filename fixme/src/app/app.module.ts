@@ -9,6 +9,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
+import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +22,11 @@ import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthTokenInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent],
