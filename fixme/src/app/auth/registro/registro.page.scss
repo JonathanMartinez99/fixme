@@ -1,7 +1,31 @@
-.centrar{
+.centrar, .titulo{
   text-align: center;
 }
 
 .titulo{
   font-size: 200%;
+}
+
+.politica{
+  font-size: 80%;
+}
+
+.ultimo-item{
+  margin-top: 15%;
+}
+
+.formulario{
+  margin-top: 10%;
+}
+
+ion-item :not(.ultimo-item){
+  margin-bottom: 2%;
+}
+
+ion-title{
+  margin-top: 15%;
+}
+
+ion-button{
+  margin-top: 15%;
 }

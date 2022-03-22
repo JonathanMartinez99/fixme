@@ -31,9 +31,27 @@
       <img src="" />
       <h2>¡Repáralo y vendelo de nuevo!</h2>
       <p>
-        Saca <b>BENEFICIO</b> vendiendo los objetos que compres después de repararlos.
+        Saca <b class="green">BENEFICIO</b> vendiendo los objetos que compres después de repararlos.
         ¡Tu valoración de usuario se verá incrementada y tus productos serán recomendados!.
       </p>
+
+      <ion-button shape="round" type="submit" color="light" expand="block">
+        <ion-icon name="logo-facebook" slot="start" color="primary"></ion-icon>
+        Continuar con Facebook
+      </ion-button>
+
+      <ion-button shape="round" type="submit" color="light" expand="block">
+        <ion-icon name="logo-google" slot="start" color="danger"></ion-icon>
+        Continuar con Google
+      </ion-button>
+
+      <ion-button (click)="toRegistro()" shape="round" type="submit" color="main2" expand="block">
+        <ion-icon name="mail" slot="start" color="light"></ion-icon>
+        Continuar con el e-mail
+      </ion-button>
+
+      <p>¿Ya tienes cuenta? <b (click)="toLogin()">Iniciar Sesión</b></p>
+
     </ion-slide>
 
     <ion-slide>
@@ -42,14 +60,46 @@
       <p>
         Usa <b>Fixme</b> a tu manera. Podrás escoger entre enviar tu producto o entregarlo personalmente.
       </p>
+
+      <ion-button shape="round" type="submit" color="light" expand="block">
+        <ion-icon name="logo-facebook" slot="start" color="primary"></ion-icon>
+        Continuar con Facebook
+      </ion-button>
+
+      <ion-button shape="round" type="submit" color="light" expand="block">
+        <ion-icon name="logo-google" slot="start" color="danger"></ion-icon>
+        Continuar con Google
+      </ion-button>
+
+      <ion-button (click)="toRegistro()" shape="round" type="submit" color="main2" expand="block">
+        <ion-icon name="mail" slot="start" color="light"></ion-icon>
+        Continuar con el e-mail
+      </ion-button>
+
+      <p>¿Ya tienes cuenta? <b (click)="toLogin()">Iniciar Sesión</b></p>
     </ion-slide>
 
     <ion-slide>
       <img src="" />
-      <h2>¿Listo/a para empezar?</h2>
-      <ion-button (click)="toMain()" fill="clear">Registrate<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
-      <p>o bien</p>
-      <ion-button (click)="toMain()" fill="clear">Echa un vistazo<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      <h2 class="listo">¿Listo/a para empezar?</h2>
+      <ion-button shape="round" type="submit" color="light" expand="block">
+        <ion-icon name="logo-facebook" slot="start" color="primary"></ion-icon>
+        Continuar con Facebook
+      </ion-button>
+
+      <ion-button shape="round" type="submit" color="light" expand="block">
+        <ion-icon name="logo-google" slot="start" color="danger"></ion-icon>
+        Continuar con Google
+      </ion-button>
+
+      <ion-button (click)="toRegistro()" shape="round" type="submit" color="main2" expand="block">
+        <ion-icon name="mail" slot="start" color="light"></ion-icon>
+        Continuar con el e-mail
+      </ion-button>
+
+      <p>¿Ya tienes cuenta? <b (click)="toLogin()">Iniciar Sesión</b></p>
+
+      <ion-button (click)="toMain()" fill="clear">Echa un vistazo antes de nada<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
     </ion-slide>
   </ion-slides>
 </ion-content>

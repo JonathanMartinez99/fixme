@@ -19,15 +19,33 @@ ion-slides {
 
 b {
   font-weight: 500;
+  color: #f7963b;
 }
 
 p {
   padding: 0 40px;
-  font-size: 14px;
+  font-size: 90%;
   line-height: 1.5;
   color: var(--ion-color-step-600, #60646b);
+  margin-bottom: 10%;
 }
 
-p b {
+p {
   color: var(--ion-text-color, #000000);
+}
+
+h2{
+  font-size: 160%;
+}
+
+.green{
+  color: green !important;
+}
+
+.listo{
+  margin-bottom: 10%;
+}
+
+ion-button{
+  margin-bottom: 3%;
 }

@@ -12,6 +12,9 @@ export class RegistroPage implements OnInit {
 
   fechaMinima = new Date().toISOString();
 
+  ofertas=false;
+  politica=false;
+
   user:User = {
     nombre:'',
     fechaNacimiento:null,
@@ -25,10 +28,17 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
 
+  cambiosOfertas(){
+    this.ofertas = !this.ofertas;
+  }
+
+  cambiosPolitica(){
+    this.politica = !this.politica;
+  }
   register(){
     this.authService.register(this.user).subscribe({
       next: () => this.router.navigate(['/auth/login']),
-      error: (error) => console.log(error)
+      error: (error) => {console.log(error)}
     })
   }
 }

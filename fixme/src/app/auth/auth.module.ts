@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { ValidatorsModule } from '../validators/validators.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { ValidatorsModule } from '../validators/validators.module';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ValidatorsModule
+    ValidatorsModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

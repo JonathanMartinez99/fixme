@@ -1,8 +1,14 @@
-.centrar{
+.centrar, .titulo{
   text-align: center;
 }
 
 .titulo{
   font-size: 200%;
+  margin-bottom: 10%;
+  margin-top: 50%;
+}
+
+ion-button{
+  margin-top: 5%;
 }
 

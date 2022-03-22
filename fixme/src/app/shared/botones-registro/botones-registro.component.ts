@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.page.html',
-  styleUrls: ['./welcome.page.scss'],
+  selector: 'app-botones-registro',
+  templateUrl: './botones-registro.component.html',
+  styleUrls: ['./botones-registro.component.scss'],
 })
-export class WelcomePage implements OnInit {
+export class BotonesRegistroComponent implements OnInit {
 
   constructor(private router:Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toLogin(){
     this.router.navigate(['/auth/login']);
@@ -22,7 +20,4 @@ export class WelcomePage implements OnInit {
     this.router.navigate(['auth/registro']);
   }
 
-  toMain(){
-    this.router.navigate(['/tabs/tab1']);
-  }
 }
