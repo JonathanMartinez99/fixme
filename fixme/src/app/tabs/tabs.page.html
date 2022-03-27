@@ -1,20 +1,25 @@
 <ion-tabs>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="tab1">
-      <ion-icon name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
+
+    <ion-tab-button tab="subelo" (click)="enterSubelo()">
+      <ion-icon *ngIf="subelo" name="add-circle-outline" color="main2"></ion-icon>
+      <ion-icon *ngIf="!subelo" name="add-circle" color="main2"></ion-icon>
+      <ion-label color="main2">Súbelo</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
-      <ion-icon name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
+    <ion-tab-button tab="inicio" (click)="enterInicio()">
+      <ion-icon *ngIf="inicio" name="home-outline" color="main2"></ion-icon>
+      <ion-icon *ngIf="!inicio" name="home" color="main2"></ion-icon>
+      <ion-label color="main2">Inicio</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3">
-      <ion-icon name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+    <ion-tab-button tab="favoritos" (click)="enterFavoritos()">
+      <ion-icon *ngIf="favoritos" name="heart-outline" color="main2"></ion-icon>
+      <ion-icon *ngIf="!favoritos" name="heart" color="main2"></ion-icon>
+      <ion-label color="main2">Favoritos</ion-label>
     </ion-tab-button>
+
   </ion-tab-bar>
 
 </ion-tabs>

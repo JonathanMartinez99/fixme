@@ -47,6 +47,7 @@ export class AuthService {
 
   isLogged(): Observable<boolean> {
     Storage.get({ key: 'token' }).then((val) => this.tokenSaved = val.value);
+
     if (this.logged) {
       return of(true);
     }
@@ -70,9 +71,5 @@ export class AuthService {
   private setLogged(bool: boolean) {
     this.logged = bool;
     this.loginChange$.next(bool);
-  }
-
-  private validate(){
-    Storage.get({ key: 'token' }).then((val) => console.log(val.value))
   }
 }

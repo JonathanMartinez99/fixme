@@ -10,13 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
-import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, SharedModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
