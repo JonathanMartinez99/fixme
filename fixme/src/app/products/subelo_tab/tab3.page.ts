@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Storage } from '@capacitor/storage';
 import { User } from 'src/app/user/interfaces/user';
 import { UsersService } from 'src/app/user/services/users.service';
 import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
+import {NgZone} from '@angular/core';
+import { throwIfEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab3',
@@ -12,12 +15,15 @@ import { ProductosService } from '../servicios/productos.service';
 })
 export class Tab3Page implements OnInit{
 
-  constructor(private usersService: UsersService, private productService: ProductosService) {}
+  constructor(private usersService: UsersService, private productService: ProductosService,
+    private ngZone: NgZone) {}
+
   token: string = '';
   me: User;
   isReparado: boolean = false;
   firstStep: boolean = true;
   secondStep: boolean = false;
+  imagenes: Array<string> = []
 
   producto: Producto = {
     nombre: '',
@@ -47,19 +53,23 @@ export class Tab3Page implements OnInit{
   ];
 
   async ngOnInit() {
-
     const {value} = await Storage.get({key: 'token'});
+
     if (value) {
       this.token = value;
       this.usersService.getMe(this.token).subscribe({
-        next: (user) => {this.me = user; this.producto.usuario = user},
+        next: (usuario) => {this.me = usuario; this.producto.usuario = usuario; console.log(this.producto.usuario)},
         error: (error) => console.log(error.error)
       });
     }
+
   }
 
   subirProducto(){
     this.producto.reparado = this.isReparado;
+    this.producto.imagen = this.imagenes;
+    console.log(this.producto);
+
 
     this.productService.postProducto(this.producto).subscribe({
         next: (producto) => console.log(producto),
@@ -84,5 +94,36 @@ export class Tab3Page implements OnInit{
     this.isReparado = false;
     this.firstStep = true;
     this.secondStep = false;
+
+    this.producto = {
+      nombre: '',
+      descripcion: '',
+      precio: null,
+      categoria: null,
+      imagen: [''],
+      reparado: false,
+      usuario: this.me
+    }
   }
+
+  async takePhoto() {
+    const photo = await Camera.getPhoto({
+    source: CameraSource.Camera,
+    quality: 90,
+    // allowEditing: true,
+    resultType: CameraResultType.DataUrl // Base64 (url encoded)
+    });
+    this.ngZone.run(() => this.imagenes.push(photo.dataUrl));
+    console.log(this.imagenes);
+
+  }
+
+  async pickFromGallery() {
+    const photo = await Camera.getPhoto({
+    source: CameraSource.Photos,
+    resultType: CameraResultType.DataUrl
+    });
+    this.imagenes.push(photo.dataUrl);
+    }
+
 }

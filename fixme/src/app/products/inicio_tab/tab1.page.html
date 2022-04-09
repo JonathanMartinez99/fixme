@@ -18,4 +18,8 @@
     <ion-searchbar placeholder="Buscar un producto"></ion-searchbar>
   </ion-toolbar>
 
+  <ion-item *ngFor="let p of productos">
+    <ion-title>{{p.nombre}}</ion-title>
+    <img src="{{ p.imagen[0] }}" alt="">
+  </ion-item>
 </ion-content>

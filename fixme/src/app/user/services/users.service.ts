@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 import { UserResponse } from '../interfaces/user-response';
 import { Storage } from '@capacitor/storage';
+import { Me } from '../interfaces/me';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class UsersService{
 
   getMe(token: string):Observable<User>{
       return this.http.get<UserResponse>(`${this.SERVER}/me/${token}`).pipe(
-        map((response) => response.usuario))
+        map((resultado) => resultado.usuario)
+      );
   }
 
   getUser(id:number):Observable<User>{

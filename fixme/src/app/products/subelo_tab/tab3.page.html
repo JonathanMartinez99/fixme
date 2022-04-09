@@ -54,16 +54,25 @@
   </ion-row>
 </ion-grid>
 
-  <form *ngIf="secondStep" (ngSubmit)="subirProducto()" #productoForm="ngForm" class="formulario">
+  <form *ngIf="secondStep" (ngSubmit)="subirProducto()" #productoForm="ngForm" class="formulario" class="top">
 
     <ion-grid>
-      <ion-row>
-        <ion-col size="12">
-          <ion-item>
-            <ion-input type="file"></ion-input>
-          </ion-item>
+      <ion-row class="align-center"><ion-col class="align-center" size="12"> Sube las imágenes de tu producto</ion-col></ion-row>
+      <ion-row class="bottom-section">
+        <ion-col size="2">
+          <ion-button class="camera-button" (click)="takePhoto()" color="main2" expand="block">
+            <ion-icon class="subelo-icon" name="camera" color="light"></ion-icon>
+          </ion-button>
+          <ion-button class="camera-button" (click)="pickFromGallery()" color="main2" expand="block">
+            <ion-icon class="subelo-icon" name="image" color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="10" class="imagenes">
+          <ion-row>          <div *ngFor="let imagen of imagenes"><img class="preview-img" src="{{imagen}}" alt=""></div>
+          </ion-row>
         </ion-col>
       </ion-row>
+      <ion-row class="align-center"><ion-col class="align-center top" size="12">Algunos detalles del producto</ion-col></ion-row>
 
       <ion-row>
         <ion-col size="12">
@@ -133,7 +142,7 @@
       </ion-row>
     </ion-grid>
 
-    <ion-button shape="round" type="submit" color="main2" expand="block" [disabled]="productoForm.invalid">
+    <ion-button class="subir-button" shape="round" type="submit" color="main2" expand="block" [disabled]="productoForm.invalid">
       <ion-icon name="add-circle-outline" slot="start"></ion-icon>
       Subir Producto
     </ion-button>
