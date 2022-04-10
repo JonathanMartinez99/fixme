@@ -88,7 +88,7 @@
         <ion-col size="12">
           <ion-item>
             <ion-label color="medium" position="stacked">Añade una descripción.</ion-label>
-            <ion-textarea #descripcion="ngModel" type="text" name="descripcion"
+            <ion-textarea minlength="10" #descripcion="ngModel" type="text" name="descripcion"
             required [(ngModel)]="producto.descripcion" placeholder="Intenta ser lo más detallad@ posible"
             ></ion-textarea>
           </ion-item>
@@ -105,7 +105,7 @@
             interface="action-sheet">
               <ng-container *ngFor="let categoria of categorias">
                 <ion-item>
-                  <ion-select-option class="categorias" value="{{categoria}}">{{categoria}}</ion-select-option>
+                  <ion-select-option class="categorias" value="{{categoria.nombre}}">{{categoria.nombre}}</ion-select-option>
                 </ion-item>
               </ng-container>
             </ion-select>

@@ -7,6 +7,7 @@ import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
 import {NgZone} from '@angular/core';
 import { throwIfEmpty } from 'rxjs/operators';
+import { Categoria } from '../interfaces/categoria';
 
 @Component({
   selector: 'app-tab3',
@@ -35,22 +36,7 @@ export class Tab3Page implements OnInit{
     usuario: undefined
   }
 
-  categorias = [
-    'Arte y Música',
-    'Electrodomésticos',
-    'Hogar y Jardín',
-    'Deporte y Ocio',
-    'Informática y Electrónica',
-    'Coleccionismo',
-    'Moda y Accesorios',
-    'Móviles y Telefonía',
-    'TV, Audio y Foto',
-    'Consolas y Videojuegos',
-    'Materiales',
-    'Bicicletas',
-    'Coches',
-    'Motos',
-  ];
+  categorias: Categoria[];
 
   async ngOnInit() {
     const {value} = await Storage.get({key: 'token'});
@@ -61,6 +47,11 @@ export class Tab3Page implements OnInit{
         next: (usuario) => {this.me = usuario; this.producto.usuario = usuario; console.log(this.producto.usuario)},
         error: (error) => console.log(error.error)
       });
+
+      this.productService.getCategorias().subscribe({
+        next: (categorias) => {this.categorias = categorias},
+        error: (error) => console.log(error)
+      })
     }
 
   }
@@ -72,7 +63,12 @@ export class Tab3Page implements OnInit{
 
 
     this.productService.postProducto(this.producto).subscribe({
-        next: (producto) => console.log(producto),
+        next: (producto) => {
+          this.productService.incrementarCategoria(producto.categoria).subscribe({
+            next: () => console.log("incrementada"),
+            error: (error) => console.log(error)
+          })
+        },
         error: (error) => console.log(error)
       }
     )
