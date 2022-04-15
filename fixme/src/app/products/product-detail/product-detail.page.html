@@ -1,0 +1,79 @@
+<ng-container *ngIf="data">
+<ion-header [translucent]="true">
+  <ion-toolbar color="main2">
+  <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title class="title">{{producto.nombre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-slides class="img" #mySlider [options]="sliderOptions" pager="true">
+    <ion-slide *ngFor="let img of producto.imagen">
+      <div style="height: 300px;">
+        <img style="height: 300px" src="{{img}}">
+      </div>
+
+    </ion-slide>
+  </ion-slides>
+
+  <ion-grid>
+    <ion-item>
+    <ion-col size="4" class="first-item">
+        {{producto.likes}}
+        <ion-icon color="main2" name="thumbs-up"></ion-icon>
+    </ion-col>
+    <ion-col size="4" class="first-item">
+        {{producto.vistas}}
+        <ion-icon color="main2" name="eye"></ion-icon>
+    </ion-col>
+    <ion-col size="4"class="first-item price">
+      {{producto.precio | number:'1.2-2'}} €
+  </ion-col>
+  </ion-item>
+
+  <ion-item>
+    <ion-col size="6">
+      <ion-chip outline color="main2" class="seleccionada">
+        <ion-label>{{producto.categoria}}</ion-label>
+        <ion-label style="margin-left: 3px;"></ion-label>
+      </ion-chip>
+    </ion-col>
+
+    <ion-col size="6" style="text-align: center;">
+      <ion-button color="main2" fill='outline'>
+        <ion-label color="danger">LIKE!</ion-label>
+        <ion-icon name="heart" color="danger"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-item>
+
+  <ion-item>
+    <ion-col size="12">
+      <ion-title class="title2">Sobre el producto...</ion-title>
+      <p style="color: black;">{{producto.descripcion}}</p>
+    </ion-col>
+  </ion-item>
+</ion-grid>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="{{producto.usuario.avatar}}">
+    </ion-avatar>
+    <ion-label>
+      <h3>{{producto.usuario.nombre}}</h3>
+      <p>{{producto.fecha | date: 'dd/MM/yyyy'}}</p>
+    </ion-label>
+
+    <ion-chip outline color="main2" class="seleccionada">
+      <ion-label>CHAT</ion-label>
+      <ion-icon name="chatbubble-ellipses" color="light"></ion-icon>
+    </ion-chip>
+
+  </ion-item>
+
+</ion-content>
+</ng-container>
+

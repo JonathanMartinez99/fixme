@@ -8,18 +8,88 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tabs 1</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
 
   <ion-toolbar>
-    <ion-searchbar placeholder="Buscar un producto"></ion-searchbar>
+    <ion-searchbar name="search" [(ngModel)]="search" placeholder="Buscar un producto"></ion-searchbar>
   </ion-toolbar>
 
-  <ion-item *ngFor="let p of productos">
-    <ion-title>{{p.nombre}}</ion-title>
-    <img src="{{ p.imagen[0] }}" alt="">
-  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-slides #mySlider [options]="sliderOptions">
+          <ion-icon name="chevron-back-circle-outline"></ion-icon>
+          <ion-slide *ngFor="let c of categorias" (click)="filtroCat(c.nombre)">
+              <ion-chip outline color="main2" id="{{c.nombre}}">
+                <ion-label>{{c.nombre}}</ion-label>
+                <ion-label style="margin-left: 3px;">({{c.numProductos}})</ion-label>
+              </ion-chip>
+          </ion-slide>
+          <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+        </ion-slides>
+      </ion-col>
+
+      <ng-container *ngIf="!filtros">
+        <ion-col *ngFor="let p of productos | productFilter:search" size="6">
+          <ion-card  [routerLink]="['/producto/detalle', p._id]">
+            <img class="product-img" src="{{p.imagen[0]}}" alt="{{p.imagen}}">
+            <ion-card-header>
+              <ion-card-title>{{p.nombre}}</ion-card-title>
+            </ion-card-header>
+
+            <ion-footer>
+              <ion-row>
+                <ion-col class="first-col down-col" center text-center>
+                  <button>
+                    {{p.likes}}
+                    <ion-icon color="main2" name="thumbs-up"></ion-icon>
+                  </button>
+                </ion-col>
+                <ion-col center text-center class="down-col">
+                  <button>
+                    {{p.vistas}}
+                    <ion-icon color="main2" name="eye"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-footer>
+          </ion-card>
+        </ion-col>
+      </ng-container>
+
+      <ng-container *ngIf="filtros">
+        <ion-col *ngFor="let p of finalProducts | productFilter:search" size="6">
+          <ion-card [routerLink]="['/producto/detalle']">
+            <img class="product-img" src="{{p.imagen[0]}}" alt="{{p.imagen}}">
+            <ion-card-header>
+              <ion-card-title>{{p.nombre}}</ion-card-title>
+            </ion-card-header>
+
+            <ion-footer>
+              <ion-row>
+                <ion-col class="first-col down-col" center text-center>
+                  <button>
+                    {{p.likes}}
+                    <ion-icon color="main2" name="thumbs-up"></ion-icon>
+                  </button>
+                </ion-col>
+                <ion-col center text-center class="down-col">
+                  <button>
+                    {{p.vistas}}
+                    <ion-icon color="main2" name="eye"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-footer>
+          </ion-card>
+        </ion-col>
+      </ng-container>
+
+
+        <ion-infinite-scroll (ionInfinite)="loadMoreItems($event)" [disabled]="finished">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+    </ion-row>
+  </ion-grid>
 </ion-content>

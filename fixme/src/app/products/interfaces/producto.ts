@@ -1,6 +1,7 @@
 import { User } from "src/app/user/interfaces/user";
 
 export interface Producto {
+  _id?: string;
   nombre: string;
   precio: number;
   descripcion: string;
@@ -10,4 +11,5 @@ export interface Producto {
   vistas?:number;
   imagen:Array<string>;
   reparado:boolean;
+  fecha?: Date;
 }

@@ -23,6 +23,12 @@ export class ProductosService {
     )
   }
 
+  getProducto(id: string): Observable<Producto>{
+    return this.http.get<ProductoResponse>(`${this.SERVER}/${id}`).pipe(
+      map( (response) => response.producto)
+    )
+  }
+
   postProducto(producto:Producto):Observable<Producto>{
     return this.http.post<ProductoResponse>(`${this.SERVER}`, producto).pipe(
       map((response) => response.producto)
