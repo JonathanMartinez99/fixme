@@ -35,6 +35,13 @@ export class ProductosService {
     )
   }
 
+  addVista(id:string, producto: Producto): Observable<Producto>{
+
+    return this.http.put<ProductoResponse>(`${this.SERVER}/vistas/${id}`, {producto}).pipe(
+      map((response) => response.producto)
+    )
+  }
+
 
   //APARTADO CATEGORIAS DEL PRODUCTO
   getCategorias(): Observable<Categoria[]>{

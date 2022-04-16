@@ -1,4 +1,4 @@
-<ng-container *ngIf="data">
+<ng-container *ngIf="data && me">
 <ion-header [translucent]="true">
   <ion-toolbar color="main2">
   <ion-buttons slot="start">
@@ -42,10 +42,12 @@
       </ion-chip>
     </ion-col>
 
-    <ion-col size="6" style="text-align: center;">
-      <ion-button color="main2" fill='outline'>
-        <ion-label color="danger">LIKE!</ion-label>
-        <ion-icon name="heart" color="danger"></ion-icon>
+    <ion-col *ngIf="me.email !== producto.usuario.email" size="6" style="text-align: center;">
+      <ion-button (click)="addFav()" color="main2" fill='outline'>
+        <ion-label *ngIf="!fav" color="danger">LIKE!</ion-label>
+        <ion-label *ngIf="fav" color="danger">UNLIKE</ion-label>
+        <ion-icon *ngIf="!fav" name="heart" color="danger"></ion-icon>
+        <ion-icon  *ngIf="fav" name="heart-dislike" color="danger"></ion-icon>
       </ion-button>
     </ion-col>
   </ion-item>
@@ -67,7 +69,7 @@
       <p>{{producto.fecha | date: 'dd/MM/yyyy'}}</p>
     </ion-label>
 
-    <ion-chip outline color="main2" class="seleccionada">
+    <ion-chip *ngIf="me.email !== producto.usuario.email" outline color="main2" class="seleccionada">
       <ion-label>CHAT</ion-label>
       <ion-icon name="chatbubble-ellipses" color="light"></ion-icon>
     </ion-chip>
