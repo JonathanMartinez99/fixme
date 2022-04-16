@@ -8,6 +8,7 @@ import { ProductosService } from '../servicios/productos.service';
 import {NgZone} from '@angular/core';
 import { throwIfEmpty } from 'rxjs/operators';
 import { Categoria } from '../interfaces/categoria';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -17,7 +18,7 @@ import { Categoria } from '../interfaces/categoria';
 export class Tab3Page implements OnInit{
 
   constructor(private usersService: UsersService, private productService: ProductosService,
-    private ngZone: NgZone) {}
+    private ngZone: NgZone, private router: Router) {}
 
   token: string = '';
   me: User;
@@ -44,8 +45,8 @@ export class Tab3Page implements OnInit{
     if (value) {
       this.token = value;
       this.usersService.getMe(this.token).subscribe({
-        next: (usuario) => {this.me = usuario; this.producto.usuario = usuario; console.log(this.producto.usuario)},
-        error: (error) => console.log(error.error)
+        next: (usuario) => {this.me = usuario; this.producto.usuario = usuario;},
+        error: (error) => {console.log(error.error); this.router.navigate(['/auth/registro']);}
       });
 
       this.productService.getCategorias().subscribe({
@@ -100,6 +101,8 @@ export class Tab3Page implements OnInit{
       reparado: false,
       usuario: this.me
     }
+
+    this.ngOnInit();
   }
 
   async takePhoto() {

@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/user/services/users.service';
 import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
 import { Storage } from '@capacitor/storage';
+import { MapComponent } from 'ngx-mapbox-gl';
 
 
 @Component({
@@ -22,6 +23,9 @@ export class ProductDetailPage implements OnInit {
     token: string = '';
     me: User;
     fav: boolean = false;
+    lat = 0;
+    lng = 0;
+
 
   async ngOnInit() {
     const {value} = await Storage.get({key: 'token'});
@@ -29,7 +33,8 @@ export class ProductDetailPage implements OnInit {
     this.ps.getProducto(this.rutaActiva.snapshot.params.id).subscribe({
       next: (producto) => {
         this.producto = producto; this.data = true;
-
+        this.lat = producto.usuario.lat;
+        this.lng = producto.usuario.lng;
         if (value) {
           this.token = value;
           this.us.getMe(this.token).subscribe({
@@ -55,6 +60,7 @@ export class ProductDetailPage implements OnInit {
       error: (error) => console.log(error)
     });
   }
+
 
   addFav(){
     if(!this.fav){

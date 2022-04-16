@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/user/interfaces/user';
 import { AuthService } from '../services/auth.service';
+import { MapComponent } from 'ngx-mapbox-gl';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-registro',
@@ -25,7 +27,10 @@ export class RegistroPage implements OnInit {
   };
   constructor(private authService:AuthService, private router:Router) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    this.user.lat = coordinates.coords.latitude;
+    this.user.lng = coordinates.coords.longitude;
   }
 
   cambiosOfertas(){
