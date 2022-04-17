@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import { AuthService } from './auth/services/auth.service';
+import { UsersService } from './user/services/users.service';
+import { Storage } from '@capacitor/storage';
+
 
 @Component({
   selector: 'app-root',
@@ -8,28 +11,82 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private authService: AuthService, private nav: NavController, private platform: Platform) {
+  constructor(private authService: AuthService, private nav: NavController, private platform: Platform
+    , private us: UsersService) {
 
-    // this.initializeApp();
-
+    //this.initializeApp();
     this.authService.loginChange$.subscribe(
-      (logged) => this.menuDisabled = !logged
+      (logged) => {this.menuDisabled = !logged;
+        if(!this.menuDisabled){
+          console.log("app component lanzado")
+          this.appPages = [
+            {
+              "title": "Home",
+              "url":'/tabs/inicio',
+              "icon":"home",
+            },
+          ];
+          this.ngOnInit();
+        }
+      }
     );
+  }
+  menuDisabled: boolean = true;
+  token: string = '';
+  userId: string = '';
+
+  async ngOnInit(){
+    const {value} = await Storage.get({key: 'token'});
+
+    if(value){
+      this.token = value;
+      this.us.getMe(this.token).subscribe({
+        next: (usuario) => {
+          this.userId = usuario._id;
+          this.menuDisabled = false;
+          this.appPages.push({
+          "title": "Mi Perfil",
+          "url":'/usuario/detalle/' + this.userId,
+          "icon":"person"
+        })},
+        error: (error) => {
+          this.appPages = [
+            {
+              "title": "Iniciar Sesión",
+              "url":'/auth/login',
+              "icon":"person"
+            },
+            {
+              "title": "Registrarse",
+              "url":'/auth/registro',
+              "icon":"person"
+            }
+          ]
+        }
+      });
+    }else{
+      this.appPages = [
+        {
+          "title": "Iniciar Sesión",
+          "url":'/auth/login',
+          "icon":"person"
+        },
+        {
+          "title": "Registrarse",
+          "url":'/auth/registro',
+          "icon":"person"
+        }
+      ]
+    }
   }
 
   appPages = [
     {
       "title": "Home",
-      "url":'/tabs/tab1',
-      "icon":"home"
-    },
-    {
-      "title": "Favoritos",
-      "url":'/tabs/tab2',
-      "icon":"person"
+      "url":'/tabs/inicio',
+      "icon":"home",
     },
   ];
-  menuDisabled = false;
 
   async logout() {
     await this.authService.logout();

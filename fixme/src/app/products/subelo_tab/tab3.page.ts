@@ -66,9 +66,9 @@ export class Tab3Page implements OnInit{
     this.productService.postProducto(this.producto).subscribe({
         next: (producto) => {
           this.productService.incrementarCategoria(producto.categoria).subscribe({
-            next: () => console.log("incrementada"),
+            next: () => { this.router.navigate(['/tabs/inicio'])},
             error: (error) => console.log(error)
-          })
+          });
         },
         error: (error) => console.log(error)
       }
@@ -91,6 +91,7 @@ export class Tab3Page implements OnInit{
     this.isReparado = false;
     this.firstStep = true;
     this.secondStep = false;
+    this.imagenes = [];
 
     this.producto = {
       nombre: '',

@@ -25,12 +25,7 @@ export class Tab1Page implements OnInit{
   filtros: boolean = false;
 
   ngOnInit() {
-    this.productService.getProductos().subscribe({
-      next: (productos) => {
-        this.productos = productos;
-      },
-      error: (error) => console.log(error)
-    })
+    this.update();
 
     this.productService.getCategorias().subscribe({
       next: (categorias) => this.categorias = categorias,
@@ -98,5 +93,21 @@ export class Tab1Page implements OnInit{
         event.target.complete(); // Hide the loader
       }
     }, event === null ? 0 : 2000);
+  }
+
+  update() {
+    this.productService.getProductos().subscribe({
+      next: (productos) => {
+        this.productos = productos;
+      },
+      error: (error) => console.log(error)
+    })
+  }
+
+  refresh(event: Event) {
+    setTimeout(() => {
+      this.update();
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
   }
 }

@@ -15,4 +15,5 @@ export interface User {
   valoracion?:number;
   direccion?:string;
   favoritos?:Array<Producto>;
+  productos?:Array<Producto>;
 }

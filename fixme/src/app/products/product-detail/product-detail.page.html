@@ -61,11 +61,11 @@
 </ion-grid>
 
   <ion-item>
-    <ion-avatar slot="start">
+    <ion-avatar slot="start" [routerLink]="['/usuario/detalle', producto.usuario._id]">
       <img src="{{producto.usuario.avatar}}">
     </ion-avatar>
     <ion-label>
-      <h3>{{producto.usuario.nombre}}</h3>
+      <h3 [routerLink]="['/usuario/detalle', producto.usuario._id]">{{producto.usuario.nombre}}</h3>
       <p>{{producto.fecha | date: 'dd/MM/yyyy'}}</p>
     </ion-label>
 

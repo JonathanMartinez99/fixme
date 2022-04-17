@@ -25,9 +25,15 @@ export class UsersService{
       );
   }
 
-  getUser(id:number):Observable<User>{
+  getUser(id: string):Observable<User>{
     return this.http.get<UserResponse>(`${this.SERVER}/${id}`).pipe(
       map((response) => response.usuario)
+    )
+  }
+
+  addProducto(id: string, producto: Producto): Observable<Producto>{
+    return this.http.put<ProductoResponse>(`${this.SERVER}/producto/${id}`, {producto}).pipe(
+      map((response) => response.producto)
     )
   }
 

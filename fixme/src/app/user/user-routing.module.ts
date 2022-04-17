@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'detalle/:id',
+    loadChildren: () => import('./user-detail/user-detail.module').then( m => m.UserDetailPageModule)
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

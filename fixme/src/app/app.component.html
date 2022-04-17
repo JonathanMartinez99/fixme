@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu side="start" contentId="main-content" type="overlay" [disabled]="menuDisabled">
+    <ion-menu side="start" contentId="main-content" type="overlay">
     <ion-header>
     <ion-toolbar color="main2">
     <ion-title>Menu</ion-title>
@@ -13,16 +13,16 @@
         <ion-item routerDirection="root" [routerLink]="[p.url]"
         lines="none" detail="false" routerLinkActive="selected"
         [routerLinkActiveOptions]="{ exact: true }">
-        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-icon slot="start" color="main" [name]="p.icon"></ion-icon>
         <ion-label>{{ p.title }}</ion-label>
         </ion-item>
       </ion-menu-toggle>
     </ion-list>
 
-    <ion-list>
+    <ion-list *ngIf="!menuDisabled">
       <ion-menu-toggle auto-hide="false">
         <ion-item (click)="logout()" lines="none" detail="false">
-          <ion-icon slot="start" name="exit"></ion-icon>
+          <ion-icon color="main2" slot="start" name="exit"></ion-icon>
           <ion-label>Logout</ion-label>
         </ion-item>
       </ion-menu-toggle>
