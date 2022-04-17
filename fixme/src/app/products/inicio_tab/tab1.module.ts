@@ -7,6 +7,7 @@ import { ExploreContainerComponentModule } from '../../explore-container/explore
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { ProductFilterPipe } from '../pipes/filter/product-filter.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ProductFilterPipe } from '../pipes/filter/product-filter.pipe';
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
+    SharedModule
   ],
   declarations: [Tab1Page, ProductFilterPipe]
 })

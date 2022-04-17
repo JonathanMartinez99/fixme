@@ -12,35 +12,11 @@
   <ion-toolbar>
     <ion-searchbar name="search" [(ngModel)]="search" placeholder="Buscar un producto"></ion-searchbar>
   </ion-toolbar>
-
   <ion-grid>
     <ion-row>
       <ng-container *ngIf="favoritos">
         <ion-col *ngFor="let p of me.favoritos | productFilter:search" size="6">
-          <ion-card  [routerLink]="['/producto/detalle', p._id]">
-            <img class="product-img" src="{{p.imagen[0]}}" alt="{{p.imagen}}">
-            <ion-card-header>
-              <ion-card-title>{{p.precio}} €</ion-card-title>
-              <ion-card-subtitle style="text-align: center;">{{p.nombre}}</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-footer>
-              <ion-row>
-                <ion-col class="first-col down-col" center text-center>
-                  <button>
-                    {{p.likes}}
-                    <ion-icon color="main2" name="thumbs-up"></ion-icon>
-                  </button>
-                </ion-col>
-                <ion-col center text-center class="down-col">
-                  <button>
-                    {{p.vistas}}
-                    <ion-icon color="main2" name="eye"></ion-icon>
-                  </button>
-                </ion-col>
-              </ion-row>
-            </ion-footer>
-          </ion-card>
+          <app-product-card [routerLink]="['/producto/detalle', p._id]" [p]="p"></app-product-card>
         </ion-col>
       </ng-container>
 
