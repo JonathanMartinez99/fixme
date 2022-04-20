@@ -8,6 +8,7 @@ import { UserDetailPageRoutingModule } from './user-detail-routing.module';
 
 import { UserDetailPage } from './user-detail.page';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
     FormsModule,
     IonicModule,
     UserDetailPageRoutingModule,
-    NgxMapboxGLModule
+    NgxMapboxGLModule,
+    SharedModule
   ],
   declarations: [UserDetailPage]
 })

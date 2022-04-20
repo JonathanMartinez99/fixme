@@ -1,0 +1,50 @@
+
+  <form (ngSubmit)="update()" #registerForm="ngForm" class="formulario" *ngIf="usuario">
+    <ion-list>
+      <ion-item style="margin-top: 6%;">
+        <ion-title style="padding-left: 13%; margin-bottom: 3%;">Cambiar datos personales</ion-title>
+        <ion-label color="medium" position="floating">Nombre y apellidos</ion-label>
+        <ion-input #nombre="ngModel" type="text" name="nombre"
+        required [(ngModel)]="usuario.nombre"
+        pattern="[A-z][A-z ]*"
+        ></ion-input>
+      </ion-item>
+      <ion-label *ngIf="nombre.touched && nombre.invalid" color="danger" slot="end">Por favor, introduce tu nombre.</ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">E-mail</ion-label>
+        <ion-input #email="ngModel" type="email" name="email"
+        required [(ngModel)]="usuario.email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        ></ion-input>
+      </ion-item>
+      <ion-label *ngIf="email.touched && email.invalid" color="danger" slot="end">Por favor, introduce un e-mail.</ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="stacked">Fecha de nacimiento</ion-label>
+        <ion-input #fecha="ngModel" type="date" name="fecha" minDate={{fechaMinima}}
+        required [(ngModel)]="fechaNacimiento"
+        ></ion-input>
+
+      </ion-item>
+      <ion-label *ngIf=" fecha.touched && fecha.errors?.['minDate']" color="danger" slot="end">Lo sentimos, debes ser mayor de edad.</ion-label>
+
+      <ion-item style="margin-top: 8%;">
+        <ion-title style="padding-left: 20%; margin-bottom: 3%;">Cambiar contraseña</ion-title>
+        <ion-label color="medium" position="floating">Contraseña</ion-label>
+        <ion-input type="password" name="password" minlength="8" required [(ngModel)]="password"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="medium" position="floating">Repetir Contraseña</ion-label>
+        <ion-input type="password" name="password2" minlength="8" required [(ngModel)]="password2"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button class="btn" shape="round" type="submit" color="main2" expand="block">
+        <ion-icon color="light" name="pencil" slot="end"></ion-icon>
+        <ion-label style="color: white;">Guardar</ion-label>
+      </ion-button>
+
+    </ion-list>
+  </form>

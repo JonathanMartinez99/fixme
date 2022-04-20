@@ -32,6 +32,15 @@
       </mgl-map>
     </ion-row>
 
+    <ion-item *ngIf="isMe" color="main2" class="subidos" (click)="ocultarEdit()">
+      <h4>Editar tu perfil</h4>
+      <ion-icon *ngIf="!hideEdit" slot="end" name="caret-up-circle-outline" color="light"></ion-icon>
+      <ion-icon *ngIf="hideEdit" slot="end" name="caret-down-circle-outline" color="light"></ion-icon>
+    </ion-item>
+
+    <ng-container *ngIf="isMe && !hideEdit">
+      <app-profile-form [usuario]="user"></app-profile-form>
+    </ng-container>
 
     <ion-item color="main2" class="subidos" (click)="ocultarProductos()">
       <h4>Productos subidos</h4>
@@ -40,14 +49,17 @@
     </ion-item>
 
     <ion-list *ngIf="!hide">
-      <ion-item *ngFor="let p of productos" [routerLink]="['/producto/detalle', p._id]">
-        <ion-avatar slot="start">
+      <ion-item *ngFor="let p of productos">
+        <ion-avatar slot="start" [routerLink]="['/producto/detalle', p._id]">
           <img src="{{p.imagen[0]}}" />
         </ion-avatar>
-        <ion-label>
+        <ion-label [routerLink]="['/producto/detalle', p._id]">
           <h2> <b>{{p.nombre}}</b></h2>
           <h2> <b>{{p.precio}} € </b></h2>
         </ion-label>
+        <ion-avatar *ngIf="isMe" slot="end">
+          <ion-icon style="height: 100%;" name="trash" color="danger"></ion-icon>
+        </ion-avatar>
       </ion-item>
     </ion-list>
 

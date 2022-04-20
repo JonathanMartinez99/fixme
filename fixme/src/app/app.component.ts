@@ -21,7 +21,7 @@ export class AppComponent {
           console.log("app component lanzado")
           this.appPages = [
             {
-              "title": "Home",
+              "title": "Inicio",
               "url":'/tabs/inicio',
               "icon":"home",
             },
@@ -51,6 +51,11 @@ export class AppComponent {
         })},
         error: (error) => {
           this.appPages = [
+            {
+              "title": "Inicio",
+              "url":'/tabs/inicio',
+              "icon":"home",
+            },
             {
               "title": "Iniciar Sesión",
               "url":'/auth/login',

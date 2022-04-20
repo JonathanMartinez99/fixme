@@ -20,6 +20,7 @@ export class UserDetailPage implements OnInit {
   isMe: boolean = false;
   productos: Producto[];
   hide: boolean = false;
+  hideEdit: boolean = true;
 
   async ngOnInit() {
     let id = this.ruta.snapshot.paramMap.get('id');
@@ -35,14 +36,14 @@ export class UserDetailPage implements OnInit {
               usuario._id === usuario2._id ? this.isMe = true : this.isMe =  false;
               this.getProducts(usuario);
             },
-            error: (error) => {console.log(error.error);}
+            error: (error) => {this.user = usuario; this.getProducts(usuario)}
           });
         }else{
           this.user = usuario;
           this.getProducts(usuario);
         }
       },
-      error: (error) => {console.log(error.error);}
+      error: (error) => {console.log(error);}
     })
   }
 
@@ -57,6 +58,10 @@ export class UserDetailPage implements OnInit {
 
   ocultarProductos(){
     this.hide = !this.hide;
+  }
+
+  ocultarEdit(){
+    this.hideEdit =  !this.hideEdit;
   }
 
 }

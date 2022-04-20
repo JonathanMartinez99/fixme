@@ -53,7 +53,7 @@ export class ProductDetailPage implements OnInit {
                 })
               }
             },
-            error: (error) => console.log(error.error)
+            error: (error) => console.log(error)
           });
         }
       },
@@ -65,13 +65,11 @@ export class ProductDetailPage implements OnInit {
   addFav(){
     if(!this.fav){
       this.us.addFav(this.me._id, this.producto).subscribe({
-        next: (productos) => {this.fav = true; this.producto = productos;},
-        error: (error) => console.log(error)
+        next: (productos) => {this.fav = true; this.producto = productos;}
       })
     }else{
       this.us.deleteFav(this.me._id, this.producto).subscribe({
-        next: (productos) => {this.fav = false; this.producto = productos},
-        error: (error) => console.log(error)
+        next: (productos) => {this.fav = false; this.producto = productos}
       })
     }
   }
