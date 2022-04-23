@@ -51,4 +51,24 @@ export class UsersService{
     )
   }
 
+  putPersonalData(usuario: User): Observable<User>{
+    return this.http.put<UserResponse>(`${this.SERVER}/${usuario._id}`, {usuario}).pipe(
+      map((response) => response.usuario)
+    )
+  }
+
+  putPass(usuario: User): Observable<User>{
+    let password = usuario.password;
+    return this.http.put<UserResponse>(`${this.SERVER}/password/${usuario._id}`, {password}).pipe(
+      map((response) => response.usuario)
+    )
+  }
+
+  putAvatar(usuario: User): Observable<User>{
+    let avatar = usuario.avatar;
+    return this.http.put<UserResponse>(`${this.SERVER}/avatar/${usuario._id}`, {avatar}).pipe(
+      map((response) => response.usuario)
+    )
+  }
+
 }

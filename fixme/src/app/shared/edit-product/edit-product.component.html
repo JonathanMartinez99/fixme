@@ -1,0 +1,99 @@
+
+<form (ngSubmit)="editarProducto()" #productoForm="ngForm" class="formulario" class="top">
+
+  <ion-grid>
+    <ion-row class="align-center"><ion-col class="align-center" size="12"> Sube las imágenes de tu producto</ion-col></ion-row>
+    <ion-row class="bottom-section">
+      <ion-col size="2">
+        <ion-button class="camera-button" (click)="takePhoto()" color="main2" expand="block">
+          <ion-icon class="subelo-icon" name="camera" color="light"></ion-icon>
+        </ion-button>
+        <ion-button class="camera-button" (click)="pickFromGallery()" color="main2" expand="block">
+          <ion-icon class="subelo-icon" name="image" color="light"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="10" class="imagenes">
+        <ion-row>
+          <div class="imagen-div" *ngFor="let imagen of imagenes">
+            <img class="preview-img" src="{{imagen}}" alt="">
+            <ion-button *ngIf="imagenes.length > 1" style="height: 16%;" (click)="deleteImage(imagen)" expand="block" color="danger">Quitar
+            </ion-button>
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="align-center"><ion-col class="align-center top" size="12">Algunos detalles del producto</ion-col></ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label color="medium" position="floating">Titulo del producto</ion-label>
+          <ion-input #nombre="ngModel" type="text" name="nombre"
+          required [(ngModel)]="producto.nombre"
+          ></ion-input>
+        </ion-item>
+        <ion-label *ngIf="nombre.touched && nombre.invalid" color="danger">Por favor, introduce el título del producto.</ion-label>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label color="medium" position="stacked">Añade una descripción.</ion-label>
+          <ion-textarea minlength="10" #descripcion="ngModel" type="text" name="descripcion"
+          required [(ngModel)]="producto.descripcion" placeholder="Intenta ser lo más detallad@ posible"
+          ></ion-textarea>
+        </ion-item>
+        <ion-label *ngIf="descripcion.touched && descripcion.invalid" color="danger">La descripción no puede quedar vacía.</ion-label>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label color="medium" position="floating">Categoría</ion-label>
+          <ion-select [(ngModel)]="producto.categoria" #categoria="ngModel" name="categoria"
+          cancelText="Ir atrás"
+          required
+          interface="action-sheet">
+          <ion-select-option class="categorias" value="{{producto.categoria}}" selected>{{producto.categoria}}</ion-select-option>
+            <ng-container *ngFor="let categoria of categorias">
+              <ion-item>
+                <ion-select-option class="categorias" value="{{categoria.nombre}}">{{categoria.nombre}}</ion-select-option>
+              </ion-item>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="8">
+        <ion-item>
+          <ion-label color="medium" position="floating">Precio</ion-label>
+          <ion-input #precio="ngModel" type="number" name="precio"
+          required [(ngModel)]="producto.precio"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-select
+        cancelText="Ir atrás"
+        interface="action-sheet"
+        value="€"
+        style="color:gray; font-size: 150%; vertical-align: middle;"
+        color="medium">
+          <ng-container>
+            <ion-item>
+              <ion-select-option value="€">€</ion-select-option>
+              <ion-select-option value="$">$</ion-select-option>
+              <ion-select-option value="USD">USD</ion-select-option>
+            </ion-item>
+          </ng-container>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-button class="subir-button" shape="round" type="submit" color="main2" expand="block" [disabled]="productoForm.invalid">
+    <ion-icon name="pencil" slot="start"></ion-icon>
+    Editar
+  </ion-button>
+</form>

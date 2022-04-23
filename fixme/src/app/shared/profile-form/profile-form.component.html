@@ -27,8 +27,17 @@
         ></ion-input>
 
       </ion-item>
-      <ion-label *ngIf=" fecha.touched && fecha.errors?.['minDate']" color="danger" slot="end">Lo sentimos, debes ser mayor de edad.</ion-label>
+      <ion-label *ngIf="fecha.value !== undefined && fecha.errors?.['minDate']" color="danger" slot="end">Lo sentimos, debes ser mayor de edad.</ion-label>
+      </ion-list>
 
+      <ion-button [disabled]="fecha.invalid && fecha.value" class="btn" shape="round" type="submit" color="main2" expand="block">
+        <ion-icon color="light" name="pencil" slot="end"></ion-icon>
+        <ion-label style="color: white;">Guardar</ion-label>
+      </ion-button>
+    </form>
+
+    <form (ngSubmit)="updatePassword()" #updPassForm="ngForm" class="formulario" *ngIf="usuario">
+      <ion-list>
       <ion-item style="margin-top: 8%;">
         <ion-title style="padding-left: 20%; margin-bottom: 3%;">Cambiar contraseña</ion-title>
         <ion-label color="medium" position="floating">Contraseña</ion-label>
@@ -41,7 +50,7 @@
         ></ion-input>
       </ion-item>
 
-      <ion-button class="btn" shape="round" type="submit" color="main2" expand="block">
+      <ion-button [disabled]="updPassForm.invalid" class="btn" shape="round" type="submit" color="main2" expand="block">
         <ion-icon color="light" name="pencil" slot="end"></ion-icon>
         <ion-label style="color: white;">Guardar</ion-label>
       </ion-button>

@@ -5,12 +5,13 @@ import { IonicModule } from '@ionic/angular';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { FormsModule } from '@angular/forms';
 import { ValidatorsModule } from '../validators/validators.module';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 
 
 
 @NgModule({
-  declarations: [ProductCardComponent, ProfileFormComponent],
+  declarations: [ProductCardComponent, ProfileFormComponent, EditProductComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -19,7 +20,8 @@ import { ValidatorsModule } from '../validators/validators.module';
       ],
   exports: [
     ProductCardComponent,
-    ProfileFormComponent
+    ProfileFormComponent,
+    EditProductComponent
   ]
 })
 export class SharedModule { }

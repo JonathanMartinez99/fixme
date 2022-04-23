@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Storage } from '@capacitor/storage';
 import { Producto } from 'src/app/products/interfaces/producto';
 import { ProductosService } from 'src/app/products/servicios/productos.service';
@@ -21,6 +22,10 @@ export class UserDetailPage implements OnInit {
   productos: Producto[];
   hide: boolean = false;
   hideEdit: boolean = true;
+  avatarOpened: boolean = false;
+  photo: any;
+  openEdit: boolean = false;
+  p: Producto;
 
   async ngOnInit() {
     let id = this.ruta.snapshot.paramMap.get('id');
@@ -28,6 +33,7 @@ export class UserDetailPage implements OnInit {
 
     this.us.getUser(id).subscribe({
       next: (usuario) => {
+        this.photo = usuario.avatar;
         if(value){
           this.token = value;
           this.us.getMe(this.token).subscribe({
@@ -62,6 +68,72 @@ export class UserDetailPage implements OnInit {
 
   ocultarEdit(){
     this.hideEdit =  !this.hideEdit;
+  }
+
+  update(event){
+    this.user = event;
+  }
+
+  openAvatar(){
+    this.avatarOpened = true;
+  }
+
+  closeAvatar(){
+    this.avatarOpened = false;
+
+    if(this.photo !== this.user.avatar){
+      this.us.putAvatar(this.user).subscribe({
+        next: (usuario) => {
+          this.user = usuario
+        },
+        error: (error) => console.log(error)
+      })
+    }
+  }
+
+  async pickFromGallery() {
+    const photo = await Camera.getPhoto({
+    source: CameraSource.Photos,
+    resultType: CameraResultType.DataUrl
+    });
+    this.user.avatar = photo.dataUrl;
+  }
+
+  editProduct(p: Producto){
+    this.openEdit = true;
+    this.p = p;
+  }
+
+  closeEditar(){
+    this.openEdit = false;
+  }
+
+  async deleteProduct(p: Producto){
+    // let confirm = false;
+    // const result = await Dialog.confirm({
+    //   title: 'Confirm',
+    //   message: 'Are you sure you want to delete this event?'
+    //   });
+    //   confirm = result.value;
+
+    //   if(confirm){
+    //     this.ps.deleteProducto(p._id).subscribe(
+    //       async ev => {
+    //         (await this.toastCtrl.create({
+    //           position: 'bottom',
+    //           duration: 3000,
+    //           message: 'Event deleted succesfully!',
+    //           color: 'success'
+    //         })).present();
+    //       },
+    //       async error => (await this.toastCtrl.create({
+    //         position: 'bottom',
+    //         duration: 3000,
+    //         message: 'ERROR. The event cannot be deleted!',
+    //         color: 'danger'
+    //       })).present()
+    //     )
+    //   }
   }
 
 }
