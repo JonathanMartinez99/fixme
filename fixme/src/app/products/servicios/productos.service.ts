@@ -23,6 +23,12 @@ export class ProductosService {
     )
   }
 
+  getReparados(): Observable<Producto[]>{
+    return this.http.get<ProductosResponse>(`${this.SERVER}/reparados`).pipe(
+      map((response) => response.productos)
+    )
+  }
+
   getProducto(id: string): Observable<Producto>{
     return this.http.get<ProductoResponse>(`${this.SERVER}/${id}`).pipe(
       map( (response) => response.producto)

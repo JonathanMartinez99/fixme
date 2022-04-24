@@ -4,6 +4,7 @@ import { User } from 'src/app/user/interfaces/user';
 import { AuthService } from '../services/auth.service';
 import { MapComponent } from 'ngx-mapbox-gl';
 import { Geolocation } from '@capacitor/geolocation';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -25,7 +26,7 @@ export class RegistroPage implements OnInit {
     lat:0,
     lng:0
   };
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private authService:AuthService, private router:Router, private toastCtrl: ToastController) { }
 
   async ngOnInit() {
     const coordinates = await Geolocation.getCurrentPosition();
@@ -42,8 +43,31 @@ export class RegistroPage implements OnInit {
   }
   register(){
     this.authService.register(this.user).subscribe({
-      next: () => this.router.navigate(['/auth/login']),
-      error: (error) => {console.log(error)}
+      next: () => {
+        this.toast(true);
+        this.router.navigate(['/auth/login']);
+
+      },
+      error: (error) => {console.log(error); this.toast(false)}
     })
+  }
+
+  async toast(bool){
+
+    if(bool){
+      (await this.toastCtrl.create({
+        position: 'bottom',
+        duration: 3000,
+        message: '¡Bienvenido! Ahora entra en tu cuenta',
+        color: 'success'
+      })).present();
+    }else{
+      (await this.toastCtrl.create({
+        position: 'bottom',
+        duration: 3000,
+        message: 'ERROR. No se ha podido registrar',
+        color: 'danger'
+      })).present()
+    }
   }
 }

@@ -4,6 +4,7 @@ import { Categoria } from 'src/app/products/interfaces/categoria';
 import { Producto } from 'src/app/products/interfaces/producto';
 import { ProductosService } from 'src/app/products/servicios/productos.service';
 import {NgZone} from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-product',
@@ -17,7 +18,7 @@ export class EditProductComponent implements OnInit {
   categorias: Categoria[];
 
 
-  constructor(private ps: ProductosService, private ngZone: NgZone) { }
+  constructor(private ps: ProductosService, private ngZone: NgZone, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.imagenes = this.producto.imagen;
@@ -30,8 +31,8 @@ export class EditProductComponent implements OnInit {
   editarProducto(){
     this.producto.imagen = this.imagenes;
     this.ps.putProducto(this.producto).subscribe({
-      next: (producto) => this.producto = producto,
-      error: (error) => console.log(error)
+      next: (producto) => {this.producto = producto; this.toast(true)},
+      error: (error) => {console.log(error); this.toast(false)}
     })
   }
 
@@ -57,5 +58,24 @@ export class EditProductComponent implements OnInit {
     resultType: CameraResultType.DataUrl
     });
     this.imagenes.push(photo.dataUrl);
+    }
+
+    async toast(bool){
+
+      if(bool){
+        (await this.toastCtrl.create({
+          position: 'bottom',
+          duration: 3000,
+          message: '¡Editado!',
+          color: 'success'
+        })).present();
+      }else{
+        (await this.toastCtrl.create({
+          position: 'bottom',
+          duration: 3000,
+          message: 'ERROR. No se ha podido editar',
+          color: 'danger'
+        })).present()
+      }
     }
 }

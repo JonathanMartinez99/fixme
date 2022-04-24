@@ -25,6 +25,11 @@ export class AppComponent {
               "url":'/tabs/inicio',
               "icon":"home",
             },
+            {
+              "title": "Reparados",
+              "url":'/tabs/inicio/reparados',
+              "icon":"construct",
+            },
           ];
           this.ngOnInit();
         }
@@ -36,6 +41,7 @@ export class AppComponent {
   userId: string = '';
 
   async ngOnInit(){
+
     const {value} = await Storage.get({key: 'token'});
 
     if(value){
@@ -48,13 +54,20 @@ export class AppComponent {
           "title": "Mi Perfil",
           "url":'/usuario/detalle/' + this.userId,
           "icon":"person"
-        })},
+        });
+        this.nav.navigateRoot(['/tabs/inicio']);
+      },
         error: (error) => {
           this.appPages = [
             {
               "title": "Inicio",
               "url":'/tabs/inicio',
               "icon":"home",
+            },
+            {
+              "title": "Reparados",
+              "url":'/tabs/inicio/reparados',
+              "icon":"construct",
             },
             {
               "title": "Iniciar Sesión",
@@ -66,7 +79,8 @@ export class AppComponent {
               "url":'/auth/registro',
               "icon":"person"
             }
-          ]
+          ];
+          this.nav.navigateRoot(['/welcome']);
         }
       });
     }else{
@@ -90,6 +104,11 @@ export class AppComponent {
       "title": "Home",
       "url":'/tabs/inicio',
       "icon":"home",
+    },
+    {
+      "title": "Reparados",
+      "url":'/tabs/inicio/reparados',
+      "icon":"construct",
     },
   ];
 

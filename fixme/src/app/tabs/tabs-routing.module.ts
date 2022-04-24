@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('../products/inicio_tab/tab1.module').then(m => m.Tab1PageModule)
       },
       {
+        path: 'inicio/:reparados',
+        loadChildren: () => import('../products/inicio_tab/tab1.module').then(m => m.Tab1PageModule)
+      },
+      {
         path: 'favoritos',
         loadChildren: () => import('../products/favoritos_tab/tab2.module').then(m => m.Tab2PageModule)
       },

@@ -9,6 +9,7 @@ import {NgZone} from '@angular/core';
 import { throwIfEmpty } from 'rxjs/operators';
 import { Categoria } from '../interfaces/categoria';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
 export class Tab3Page implements OnInit{
 
   constructor(private usersService: UsersService, private productService: ProductosService,
-    private ngZone: NgZone, private router: Router) {}
+    private ngZone: NgZone, private router: Router, private toastCtrl: ToastController) {}
 
   token: string = '';
   me: User;
@@ -66,8 +67,8 @@ export class Tab3Page implements OnInit{
     this.productService.postProducto(this.producto).subscribe({
         next: (producto) => {
           this.productService.incrementarCategoria(producto.categoria).subscribe({
-            next: () => { this.router.navigate(['/tabs/inicio'])},
-            error: (error) => console.log(error)
+            next: () => { this.toast(true); this.router.navigate(['/tabs/inicio'])},
+            error: (error) => {this.toast(false); console.log(error)}
           });
         },
         error: (error) => console.log(error)
@@ -124,6 +125,25 @@ export class Tab3Page implements OnInit{
     resultType: CameraResultType.DataUrl
     });
     this.imagenes.push(photo.dataUrl);
+    }
+
+    async toast(bool){
+
+      if(bool){
+        (await this.toastCtrl.create({
+          position: 'bottom',
+          duration: 3000,
+          message: '¡Refresca para ver tu producto!',
+          color: 'success'
+        })).present();
+      }else{
+        (await this.toastCtrl.create({
+          position: 'bottom',
+          duration: 3000,
+          message: 'ERROR. No se ha podido crear',
+          color: 'danger'
+        })).present()
+      }
     }
 
 }

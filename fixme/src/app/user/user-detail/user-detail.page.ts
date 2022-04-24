@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Dialog } from '@capacitor/dialog';
 import { Storage } from '@capacitor/storage';
+import { ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/products/interfaces/producto';
 import { ProductosService } from 'src/app/products/servicios/productos.service';
 import { User } from '../interfaces/user';
@@ -15,7 +17,8 @@ import { UsersService } from '../services/users.service';
 })
 export class UserDetailPage implements OnInit {
 
-  constructor(private us: UsersService, private ruta: ActivatedRoute, private ps: ProductosService) { }
+  constructor(private us: UsersService, private ruta: ActivatedRoute, private ps: ProductosService,
+    private toastCtrl: ToastController) { }
   token: string  = '';
   user: User;
   isMe: boolean = false;
@@ -109,31 +112,44 @@ export class UserDetailPage implements OnInit {
   }
 
   async deleteProduct(p: Producto){
-    // let confirm = false;
-    // const result = await Dialog.confirm({
-    //   title: 'Confirm',
-    //   message: 'Are you sure you want to delete this event?'
-    //   });
-    //   confirm = result.value;
+    let confirm = false;
+    const result = await Dialog.confirm({
+      title: 'Confirm',
+      message: '¿Seguro que quieres borrarlo?'
+      });
+      confirm = result.value;
 
-    //   if(confirm){
-    //     this.ps.deleteProducto(p._id).subscribe(
-    //       async ev => {
-    //         (await this.toastCtrl.create({
-    //           position: 'bottom',
-    //           duration: 3000,
-    //           message: 'Event deleted succesfully!',
-    //           color: 'success'
-    //         })).present();
-    //       },
-    //       async error => (await this.toastCtrl.create({
-    //         position: 'bottom',
-    //         duration: 3000,
-    //         message: 'ERROR. The event cannot be deleted!',
-    //         color: 'danger'
-    //       })).present()
-    //     )
-    //   }
+      if(confirm){
+        this.ps.deleteProducto(p._id).subscribe({
+          next: (producto) => {
+            this.productos = this.productos.filter(prod => prod._id !== producto._id);
+            this.ps.decrementarCategoria(producto.categoria).subscribe({
+              next: () => this.toast(true),
+              error: (error) => console.log(error)
+            })
+          },
+          error: (error) => this.toast(false)
+        });
+      }
+  }
+
+  async toast(bool){
+
+    if(bool){
+      (await this.toastCtrl.create({
+        position: 'bottom',
+        duration: 3000,
+        message: '¡Producto Eliminado!',
+        color: 'success'
+      })).present();
+    }else{
+      (await this.toastCtrl.create({
+        position: 'bottom',
+        duration: 3000,
+        message: 'ERROR. No se ha podido eliminar',
+        color: 'danger'
+      })).present()
+    }
   }
 
 }

@@ -6,6 +6,7 @@ import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
 import { Categoria } from '../interfaces/categoria';
 import { IonInfiniteScroll, IonSlides } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -14,7 +15,7 @@ import { IonInfiniteScroll, IonSlides } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit{
 
-  constructor(private usersService:UsersService, private productService: ProductosService) {}
+  constructor(private usersService:UsersService, private productService: ProductosService, private rutaActiva: ActivatedRoute) {}
   productos: Producto[];
   productosScroll: Producto[] = [];
   finalProducts: Producto[] = [];
@@ -26,15 +27,18 @@ export class Tab1Page implements OnInit{
 
   ngOnInit() {
     this.update();
-
-    this.productService.getCategorias().subscribe({
-      next: (categorias) => this.categorias = categorias,
-      error: (error) => console.log(error.error.error)
-    })
+    this.getCategorias();
   }
 
   ionViewWillEnter(){
 
+  }
+
+  getCategorias(){
+    this.productService.getCategorias().subscribe({
+      next: (categorias) => this.categorias = categorias,
+      error: (error) => console.log(error.error.error)
+    })
   }
 
   filtroCat(cat){
@@ -96,12 +100,25 @@ export class Tab1Page implements OnInit{
   }
 
   update() {
-    this.productService.getProductos().subscribe({
-      next: (productos) => {
-        this.productos = productos;
-      },
-      error: (error) => console.log(error)
-    })
+
+    if(this.rutaActiva.snapshot.params.reparados !== 'reparados'){
+      this.productService.getProductos().subscribe({
+        next: (productos) => {
+          this.productos = productos;
+          this.getCategorias();
+        },
+        error: (error) => console.log(error)
+      })
+    }else{
+      this.productService.getReparados().subscribe({
+        next: (productos) => {
+          this.productos = productos;
+          this.getCategorias();
+        },
+        error: (error) => console.log(error)
+      })
+    }
+
   }
 
   refresh(event: Event) {
