@@ -54,7 +54,12 @@ export class AppComponent {
           "title": "Mi Perfil",
           "url":'/usuario/detalle/' + this.userId,
           "icon":"person"
-        });
+          },
+          {
+            "title": "Billetera",
+            "url":'/usuario/wallet',
+            "icon":"card"
+          });
         this.nav.navigateRoot(['/tabs/inicio']);
       },
         error: (error) => {
