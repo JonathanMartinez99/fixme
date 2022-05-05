@@ -20,6 +20,7 @@ export class ProductDetailPage implements OnInit {
     private us: UsersService) { }
     producto: Producto;
     data: boolean = false;
+    buyModal: boolean = false;
     token: string = '';
     me: User;
     fav: boolean = false;
@@ -72,6 +73,14 @@ export class ProductDetailPage implements OnInit {
         next: (productos) => {this.fav = false; this.producto = productos}
       })
     }
+  }
+
+  openModal(){
+    this.buyModal = true;
+  }
+
+  closeModal(){
+    this.buyModal = false;
   }
 
   @ViewChild('mySlider')  slides: IonSlides;

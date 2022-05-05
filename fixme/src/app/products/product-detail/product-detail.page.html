@@ -35,14 +35,14 @@
   </ion-item>
 
   <ion-item>
-    <ion-col size="6">
+    <ion-col size="8">
       <ion-chip outline color="main2" class="seleccionada">
         <ion-label>{{producto.categoria}}</ion-label>
         <ion-label style="margin-left: 3px;"></ion-label>
       </ion-chip>
     </ion-col>
 
-    <ion-col *ngIf="me && me.email !== producto.usuario.email" size="6" style="text-align: center;">
+    <ion-col *ngIf="me && me.email !== producto.usuario.email" size="4" style="text-align: center;">
       <ion-button (click)="addFav()" color="main2" fill='outline'>
         <ion-label *ngIf="!fav" color="danger">LIKE!</ion-label>
         <ion-label *ngIf="fav" color="danger">UNLIKE</ion-label>
@@ -52,10 +52,19 @@
     </ion-col>
   </ion-item>
 
-  <ion-item>
+  <ion-item lines="none">
     <ion-col size="12">
       <ion-title class="title2">Sobre el producto...</ion-title>
       <p style="color: black;">{{producto.descripcion}}</p>
+    </ion-col>
+  </ion-item>
+
+  <ion-item>
+    <ion-col *ngIf="me && me.email !== producto.usuario.email" size="12" style="text-align: center;">
+      <ion-button (click)="openModal()" color="main2" fill='outline' expand="block">
+        <ion-label>COMPRALO</ion-label>
+        <ion-icon name="cart" color="ligth"></ion-icon>
+      </ion-button>
     </ion-col>
   </ion-item>
 </ion-grid>
@@ -82,6 +91,32 @@
       You are here
     </mgl-popup>
   </mgl-map>
+
+  <ion-grid *ngIf="buyModal" class="overlay">
+    <ion-row class="modal">
+    <ion-row class="modal-head">
+      <ion-col style="text-align: center;" size="11">¿Cómo lo compras?</ion-col>
+      <ion-col size="1">
+        <ion-icon (click)="closeModal()" class="close" name="close" color="danger"></ion-icon>
+      </ion-col>
+    </ion-row>
+      <ion-row class="modal-body">
+        <ion-col size="6">
+          <ion-button color="main2" expand="block">
+            <ion-icon class="modal-icon" name="hand-left" color="light"></ion-icon>
+            <ion-label class="btn-modal">A MANO</ion-label>
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-button color="main2" expand="block">
+            <ion-icon class="modal-icon" name="car" color="light"></ion-icon>
+            <ion-label class="btn-modal">ENVIO</ion-label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
 </ng-container>
