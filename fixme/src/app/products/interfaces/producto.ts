@@ -12,4 +12,5 @@ export interface Producto {
   imagen:Array<string>;
   reparado:boolean;
   fecha?: Date;
+  vendido?:boolean;
 }

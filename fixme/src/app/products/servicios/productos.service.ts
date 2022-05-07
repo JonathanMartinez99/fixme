@@ -70,6 +70,12 @@ export class ProductosService {
     )
   }
 
+  putVendido(producto: Producto): Observable<Producto>{
+    return this.http.put<ProductoResponse>(`${this.SERVER}/vendido/${producto._id}`, {producto}).pipe(
+      map((response) => response.producto)
+    )
+  }
+
   deleteProducto(id: string): Observable<Producto>{
     return this.http.delete<ProductoResponse>(`${this.SERVER}/${id}`).pipe(
       map((response) => response.producto)

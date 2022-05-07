@@ -53,7 +53,7 @@ export class Tab1Page implements OnInit{
     })
 
     if(!repetido){
-      let filtrados = this.productos.filter( (c) => c.categoria === cat);
+      let filtrados = this.productos.filter( (c) => c.categoria === cat && c.vendido === false);
       filtrados.forEach( f => { this.finalProducts.push(f)})
       chip.classList.add('seleccionada');
     }else{
@@ -104,10 +104,10 @@ export class Tab1Page implements OnInit{
     if(this.rutaActiva.snapshot.params.reparados !== 'reparados'){
       this.productService.getProductos().subscribe({
         next: (productos) => {
-          this.productos = productos;
+          this.productos = productos.filter( (p) => p.vendido === false && p.reparado === false);
           this.getCategorias();
         },
-        error: (error) => console.log(error)
+        error: (error) => {console.log(error); this.productos = []}
       })
     }else{
       this.productService.getReparados().subscribe({

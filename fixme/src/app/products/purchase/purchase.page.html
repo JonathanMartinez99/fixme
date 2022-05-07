@@ -1,0 +1,102 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="main2">
+  <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title class="title">Comprar Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid style="padding:14px">
+    <ion-row>
+      <h2>Necesitamos algunos detalles antes de continuar</h2>
+    </ion-row>
+
+    <ion-row *ngIf="prod && me" class="row-info">
+      <ion-col class="col-info" size="6">
+      <ion-label style="text-align: center;">Tu compra</ion-label>
+      <ion-item lines="none">
+        <ion-avatar slot="start" [routerLink]="['/producto/detalle', prod._id]">
+          <img src="{{prod.imagen[0]}}" />
+        </ion-avatar>
+        <ion-label [routerLink]="['/producto/detalle', prod._id]">
+          <h2> <b>{{prod.nombre}}</b></h2>
+          <h2> <b>{{prod.precio}} € </b></h2>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+
+    <ion-col class="col-info" size="6">
+      <ion-label>Tu saldo</ion-label>
+      <ion-item lines="none">
+        <ion-icon class="icon-wallet" slot="start" color="main2" name="wallet-outline"></ion-icon>
+        <h3> <b>{{me.cash}} € </b></h3>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+    <ion-row>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label color="medium" position="floating">Dirección de envio</ion-label>
+          <ion-input #dir="ngModel" type="text" name="dir"
+          required [(ngModel)]="direccion"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-item>
+          <ion-label color="medium" position="floating">CP</ion-label>
+          <ion-input #cod="ngModel" max="5" type="number" name="codigoPostal"
+          required [(ngModel)]="codigoPostal"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-item>
+          <ion-label color="medium" position="floating">NUM</ion-label>
+          <ion-input #numDir="ngModel" type="number" name="numDir"
+          [(ngModel)]="numDire"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-item>
+          <ion-label color="medium" position="floating">PORT</ion-label>
+          <ion-input #portal="ngModel" type="text" name="portal"
+          [(ngModel)]="portalDir"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-item>
+          <ion-label color="medium" position="floating">ESC</ion-label>
+          <ion-input #escalera="ngModel" type="number" name="escalera"
+          [(ngModel)]="escaleraDir"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-label *ngIf="(dir.touched && dir.invalid) || (cod.touched && cod.invalid)" color="danger">*Por favor, introduce la información del envío.</ion-label>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-button (click)="comprar()" shape="round" type="submit" color="main2" expand="block" [disabled]="dir.invalid || cod.invalid">
+          <ion-icon color="light" name="card" slot="start"></ion-icon>
+          <ion-label style="color: white;">COMPRAR</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

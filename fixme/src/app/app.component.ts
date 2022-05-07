@@ -85,7 +85,7 @@ export class AppComponent {
               "icon":"person"
             }
           ];
-          this.nav.navigateRoot(['/welcome']);
+          this.nav.navigateRoot(['auth/welcome']);
         }
       });
     }else{

@@ -59,12 +59,21 @@
     </ion-col>
   </ion-item>
 
-  <ion-item>
-    <ion-col *ngIf="me && me.email !== producto.usuario.email" size="12" style="text-align: center;">
+  <ion-item *ngIf="me && me.email !== producto.usuario.email && !producto.vendido">
+    <ion-col size="12" style="text-align: center;">
       <ion-button (click)="openModal()" color="main2" fill='outline' expand="block">
         <ion-label>COMPRALO</ion-label>
         <ion-icon name="cart" color="ligth"></ion-icon>
       </ion-button>
+    </ion-col>
+  </ion-item>
+
+  <ion-item *ngIf="producto.vendido">
+    <ion-col size="12" style="text-align: center;">
+      <ion-chip outline color="danger" class="vendido">
+        <ion-label>¡Ups! Este producto ha sido vendido</ion-label>
+        <ion-label style="margin-left: 3px;"></ion-label>
+      </ion-chip>
     </ion-col>
   </ion-item>
 </ion-grid>
@@ -109,7 +118,7 @@
         </ion-col>
 
         <ion-col size="6">
-          <ion-button color="main2" expand="block">
+          <ion-button color="main2" expand="block" [routerLink]="['/producto/purchase', producto._id]">
             <ion-icon class="modal-icon" name="car" color="light"></ion-icon>
             <ion-label class="btn-modal">ENVIO</ion-label>
           </ion-button>
