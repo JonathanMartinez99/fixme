@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginActivateGuard } from '../auth/guards/login-activate.guard';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'inicio/:reparados',
-        loadChildren: () => import('../products/inicio_tab/tab1.module').then(m => m.Tab1PageModule)
+        loadChildren: () => import('../products/inicio_tab/tab1.module').then(m => m.Tab1PageModule),
       },
       {
         path: 'favoritos',

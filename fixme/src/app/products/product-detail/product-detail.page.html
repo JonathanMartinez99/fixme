@@ -68,7 +68,7 @@
     </ion-col>
   </ion-item>
 
-  <ion-item *ngIf="producto.vendido">
+  <ion-item *ngIf="me && producto.vendido && me.email !== producto.usuario.email">
     <ion-col size="12" style="text-align: center;">
       <ion-chip outline color="danger" class="vendido">
         <ion-label>¡Ups! Este producto ha sido vendido</ion-label>

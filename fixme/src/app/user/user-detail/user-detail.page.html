@@ -66,12 +66,14 @@
           <h2> <b>{{p.nombre}}</b></h2>
           <h2> <b>{{p.precio}} € </b></h2>
         </ion-label>
-        <ion-avatar *ngIf="isMe" slot="end">
-          <ion-icon (click)="editProduct(p)" style="font-size: 25px;" name="pencil"></ion-icon>
-        </ion-avatar>
-        <ion-avatar *ngIf="isMe" slot="end">
-          <ion-icon (click)="deleteProduct(p)" style="font-size: x-large;" name="trash" color="danger"></ion-icon>
-        </ion-avatar>
+        <ng-container *ngIf="!p.vendido">
+          <ion-avatar *ngIf="isMe" slot="end">
+            <ion-icon (click)="editProduct(p)" style="font-size: 25px;" name="pencil"></ion-icon>
+          </ion-avatar>
+          <ion-avatar *ngIf="isMe" slot="end">
+            <ion-icon (click)="deleteProduct(p)" style="font-size: x-large;" name="trash" color="danger"></ion-icon>
+          </ion-avatar>
+        </ng-container>
       </ion-item>
     </ion-list>
 

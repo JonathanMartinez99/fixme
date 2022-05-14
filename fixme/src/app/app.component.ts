@@ -13,7 +13,7 @@ import { Storage } from '@capacitor/storage';
 export class AppComponent {
   constructor(private authService: AuthService, private nav: NavController, private platform: Platform
     , private us: UsersService) {
-
+      console.log("ENTRO")
     //this.initializeApp();
     this.authService.loginChange$.subscribe(
       (logged) => {this.menuDisabled = !logged;
@@ -91,6 +91,16 @@ export class AppComponent {
     }else{
       this.appPages = [
         {
+          "title": "Inicio",
+          "url":'/tabs/inicio',
+          "icon":"home",
+        },
+        {
+          "title": "Reparados",
+          "url":'/tabs/inicio/reparados',
+          "icon":"construct",
+        },
+        {
           "title": "Iniciar Sesión",
           "url":'/auth/login',
           "icon":"person"
@@ -119,6 +129,7 @@ export class AppComponent {
 
   async logout() {
     await this.authService.logout();
+    this.ngOnInit();
     this.nav.navigateRoot(['/auth/login']);
   }
 
