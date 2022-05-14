@@ -24,6 +24,8 @@ export class PurchasePage implements OnInit {
   escaleraDir: string;
   prod: Producto;
   me: User;
+  comprado: boolean = false;
+  idCompra: string;
 
   constructor(private productService: ProductosService, private rutaActiva: ActivatedRoute,
     private usersService: UsersService, private cs: ComprasService) { }
@@ -64,13 +66,23 @@ export class PurchasePage implements OnInit {
         codigoPostal: this.codigoPostal
       };
 
-      this.cs.postCompra(compra).subscribe({
-        next: (compra) => {
-          console.log(compra);
-          this.productService.putVendido(this.prod).subscribe({
-            next: (producto) => console.log('VENDIDO: ' + producto.vendido),
+      this.usersService.putCashCompra(this.me, compra.producto.precio).subscribe({
+        next: (usuario) => {
+          this.me = usuario;
+          this.cs.postCompra(compra).subscribe({
+            next: (compra) => {
+              this.idCompra = compra.codigo;
+              this.productService.putVendido(this.prod).subscribe({
+                next: (producto) => {
+                  this.comprado = true
+                  this.productService.decrementarCategoria(producto.categoria).subscribe();
+                },
+                error: (error) => console.log(error)
+              })
+            },
             error: (error) => console.log(error)
-          })
+          });
+
         },
         error: (error) => console.log(error)
       });
@@ -78,5 +90,9 @@ export class PurchasePage implements OnInit {
     }else{
       console.log("no hay dineros")
     }
+  }
+
+  closeModal(){
+    this.comprado = false;
   }
 }

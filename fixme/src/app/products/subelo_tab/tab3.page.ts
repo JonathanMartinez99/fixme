@@ -27,6 +27,7 @@ export class Tab3Page implements OnInit{
   firstStep: boolean = true;
   secondStep: boolean = false;
   imagenes: Array<string> = []
+  idReparado: string = '';
 
   producto: Producto = {
     nombre: '',
@@ -74,6 +75,17 @@ export class Tab3Page implements OnInit{
         error: (error) => console.log(error)
       }
     )
+
+    if(this.isReparado && this.idReparado !== ''){
+      this.productService.getProducto(this.idReparado).subscribe({
+        next: (producto) => {
+          if(producto.vendido && !producto.reparado){
+            this.usersService.putCash(this.me, (this.producto.precio * 0.1)).subscribe();
+          }
+        },
+        error: (error) => console.log(error)
+      })
+    }
   }
 
   estandar(){
@@ -144,6 +156,10 @@ export class Tab3Page implements OnInit{
           color: 'danger'
         })).present()
       }
+    }
+
+    deleteImage(imagen: string){
+      this.imagenes = this.imagenes.filter( img => img !== imagen)
     }
 
 }

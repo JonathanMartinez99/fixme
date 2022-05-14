@@ -28,4 +28,12 @@ export class WalletPage implements OnInit {
     }
   }
 
+  addCash(){
+    this.us.putCash(this.user, 50).subscribe({
+      next: (usuario) => this.user = usuario,
+      error: (error) => console.log(error)
+    })
+
+  }
+
 }

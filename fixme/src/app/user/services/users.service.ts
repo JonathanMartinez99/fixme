@@ -71,4 +71,18 @@ export class UsersService{
     )
   }
 
+  putCash(usuario: User, money:number): Observable<User>{
+    let dinero = money;
+    return this.http.put<UserResponse>(`${this.SERVER}/cash/${usuario._id}`, {usuario, dinero}).pipe(
+      map((response) => response.usuario)
+    )
+  }
+
+  putCashCompra(usuario: User, money:number): Observable<User>{
+    let dinero = money;
+    return this.http.put<UserResponse>(`${this.SERVER}/compra/cash/${usuario._id}`, {usuario, dinero}).pipe(
+      map((response) => response.usuario)
+    )
+  }
+
 }

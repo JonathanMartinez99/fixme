@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid style="padding:14px">
+  <ion-grid style="padding:14px" *ngIf="!comprado">
     <ion-row>
       <h2>Necesitamos algunos detalles antes de continuar</h2>
     </ion-row>
@@ -31,7 +31,7 @@
       <ion-label>Tu saldo</ion-label>
       <ion-item lines="none">
         <ion-icon class="icon-wallet" slot="start" color="main2" name="wallet-outline"></ion-icon>
-        <h3> <b>{{me.cash}} € </b></h3>
+        <h3> <b style="font-size: 14px;">{{me.cash}} € </b></h3>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -98,5 +98,25 @@
       </ion-col>
     </ion-row>
 
+  </ion-grid>
+
+  <ion-grid *ngIf="comprado" class="overlay">
+    <ion-row class="modal">
+    <ion-row class="modal-head">
+      <ion-col style="text-align: center;" size="11">¿Cómo lo compras?</ion-col>
+      <ion-col size="1">
+        <ion-icon (click)="closeModal()" class="close" name="close" color="danger"></ion-icon>
+      </ion-col>
+    </ion-row>
+      <ion-row class="modal-body">
+        <ion-col size="6">
+          {{idCompra}}
+        </ion-col>
+
+        <ion-col size="6">
+          {{prod._id}}
+        </ion-col>
+      </ion-row>
+    </ion-row>
   </ion-grid>
 </ion-content>
