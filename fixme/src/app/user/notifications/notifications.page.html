@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="main2">
+  <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title class="tituloToolbar">Notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="notificaciones">
+    <ion-item *ngFor="let n of notificaciones" (click)="openInfo(n)">
+      <ion-avatar slot="start">
+        <img src="{{n.producto.imagen[0]}}" />
+      </ion-avatar>
+      <ion-label>
+        <h2><b>{{n.title}}</b></h2>
+        <p>{{n.info}}</p>
+      </ion-label>
+      <ion-icon style="padding-right: 5%;" name="eye-outline" color="main2"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ng-container *ngIf="openInformation && compra">
+    <div class="div-info">
+      <ion-icon (click)="openInfo(false)" class="close" name="close" color="danger"></ion-icon>
+      <div class="header-info">
+        <h3 *ngIf="!comprado">Detalles de envio</h3>
+        <h3 *ngIf="comprado">Detalles de compra</h3>
+      </div>
+
+      <ion-grid *ngIf="!comprado">
+        <ion-row>
+          <ion-col style="margin-left:4%; margin-top: 3%;" size="12">
+            <label><b>Dirección de envio: </b></label>
+            <p>{{compra[0].direccion}}</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin-left:4%;">
+          <ion-col size="8">
+            <label><b>Comprador: </b></label>
+            <p>{{compra[0].comprador.nombre}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <label><b>Precio: </b></label>
+            <p>{{compra[0].producto.precio}}€</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin-left:4%;">
+          <ion-col size="9" style="margin-top: 7px;">
+            <ion-input class="check" #code="ngModel" type="text" name="codigo"
+            required [(ngModel)]="codigoCompra"
+            ></ion-input>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button (click)="verificar()" class="icon" shape="round" type="submit" color="main2" expand="block" [disabled]="code.invalid">
+              <ion-icon color="light" name="shield-checkmark"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid *ngIf="comprado">
+        <ion-row style="margin-left:4%;">
+          <ion-col size="12">
+            <label><b>ID Producto: </b></label>
+            <p>{{compra[0].producto._id}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-left:4%;">
+          <ion-col size="12">
+            <label><b>Código de venta: </b></label>
+            <p>{{compra[0].codigo}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  </ng-container>
+
+</ion-content>

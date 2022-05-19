@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 import { UserResponse } from '../interfaces/user-response';
-import { Storage } from '@capacitor/storage';
-import { Me } from '../interfaces/me';
-import { ProductosResponse } from 'src/app/products/interfaces/productos-response';
-import { ProductosService } from 'src/app/products/servicios/productos.service';
 import { Producto } from '../../products/interfaces/producto';
 import { ProductoResponse } from 'src/app/products/interfaces/producto-response';
+import { NotificacionResponse } from '../interfaces/notificacion-response';
+import { Notificacion } from '../interfaces/notificacion';
+import { AddNotificacionResponse } from '../interfaces/add-notif-response';
+import { Compra } from 'src/app/products/interfaces/compra';
+import { CompraResponse } from 'src/app/products/interfaces/compra-response';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,30 @@ export class UsersService{
     )
   }
 
+  getNotifications(id:string):Observable<Notificacion[]>{
+    return this.http.get<NotificacionResponse>(`notificaciones/${id}`).pipe(
+      map((response) => response.notificaciones)
+    )
+  }
+
+  getCompra(id:string):Observable<Compra>{
+    return this.http.get<CompraResponse>(`compras/${id}`).pipe(
+      map((response) => response.compra)
+    )
+  }
+
+  addNotification(notificacion: Notificacion):Observable<Notificacion>{
+    return this.http.post<AddNotificacionResponse>(`notificaciones`, {notificacion}).pipe(
+      map((response) => response.notificacion)
+    )
+  }
+
+  deleteNotification(id: string):Observable<Notificacion>{
+    return this.http.delete<AddNotificacionResponse>(`notificaciones/${id}`).pipe(
+      map((response) => response.notificacion)
+    )
+  }
+
   addProducto(id: string, producto: Producto): Observable<Producto>{
     return this.http.put<ProductoResponse>(`${this.SERVER}/producto/${id}`, {producto}).pipe(
       map((response) => response.producto)
@@ -38,14 +63,12 @@ export class UsersService{
   }
 
   addFav(id:string, producto: Producto): Observable<Producto>{
-
     return this.http.put<ProductoResponse>(`${this.SERVER}/favorito/${id}`, {producto}).pipe(
       map((response) => response.producto)
     )
   }
 
   deleteFav(id:string, producto: Producto): Observable<Producto>{
-
     return this.http.put<ProductoResponse>(`${this.SERVER}/favorito/delete/${id}`, {producto}).pipe(
       map((response) => response.producto)
     )

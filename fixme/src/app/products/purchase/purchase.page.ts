@@ -7,6 +7,7 @@ import { UsersService } from 'src/app/user/services/users.service';
 import { User } from 'src/app/user/interfaces/user';
 import { ComprasService } from '../servicios/compras/compras.service';
 import { Compra } from '../interfaces/compra';
+import { Notificacion } from 'src/app/user/interfaces/notificacion';
 
 
 @Component({
@@ -76,6 +77,22 @@ export class PurchasePage implements OnInit {
                 next: (producto) => {
                   this.comprado = true
                   this.productService.decrementarCategoria(producto.categoria).subscribe();
+
+                  let notificacion: Notificacion = {
+                    info: 'Tu producto ha sido comprado',
+                    title: '¡Se ha comprado!',
+                    usuario: producto.usuario,
+                    producto: producto
+                  }
+                  this.usersService.addNotification(notificacion).subscribe();
+
+                  let notificacion2: Notificacion = {
+                    info: 'Has comprado este producto',
+                    title: '¡Lo has comprado!',
+                    usuario: this.me,
+                    producto: producto
+                  }
+                  this.usersService.addNotification(notificacion2).subscribe();
                 },
                 error: (error) => console.log(error)
               })

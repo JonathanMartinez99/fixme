@@ -59,7 +59,13 @@ export class AppComponent {
             "title": "Billetera",
             "url":'/usuario/wallet',
             "icon":"card"
-          });
+          },
+          {
+            "title": "Notificaciones",
+            "url":'/usuario/notifications',
+            "icon":"notifications"
+          }
+          );
         this.nav.navigateRoot(['/tabs/inicio']);
       },
         error: (error) => {

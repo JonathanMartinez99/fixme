@@ -61,7 +61,9 @@ export class Tab1Page implements OnInit{
       chip.classList.remove('seleccionada');
     }
 
-    if(this.finalProducts.length === 0){
+    let numCat: any = this.categorias.filter((c) => c.nombre === cat);
+
+    if(this.finalProducts.length === 0 || numCat[0].numProductos === 0){
       this.filtros = false;
       chip.classList.remove('seleccionada');
     }
@@ -112,7 +114,7 @@ export class Tab1Page implements OnInit{
     }else{
       this.productService.getReparados().subscribe({
         next: (productos) => {
-          this.productos = productos;
+          this.productos = productos.filter( (p) => p.vendido === false);
           this.getCategorias();
         },
         error: (error) => console.log(error)
