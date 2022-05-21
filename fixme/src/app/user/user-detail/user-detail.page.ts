@@ -87,9 +87,9 @@ export class UserDetailPage implements OnInit {
     if(this.photo !== this.user.avatar){
       this.us.putAvatar(this.user).subscribe({
         next: (usuario) => {
-          this.user = usuario
+          this.user = usuario;
         },
-        error: (error) => console.log(error)
+        error: (error) => this.toast(false, '¡ERROR!. No se ha podido cambiar')
       })
     }
   }
@@ -100,6 +100,7 @@ export class UserDetailPage implements OnInit {
     resultType: CameraResultType.DataUrl
     });
     this.user.avatar = photo.dataUrl;
+    this.toast(true, '¡Avatar cambiado!');
   }
 
   editProduct(p: Producto){
@@ -124,29 +125,29 @@ export class UserDetailPage implements OnInit {
           next: (producto) => {
             this.productos = this.productos.filter(prod => prod._id !== producto._id);
             this.ps.decrementarCategoria(producto.categoria).subscribe({
-              next: () => this.toast(true),
+              next: () => this.toast(true, '¡Producto Eliminado!'),
               error: (error) => console.log(error)
             })
           },
-          error: (error) => this.toast(false)
+          error: (error) => this.toast(false, 'ERROR. No se ha podido eliminar')
         });
       }
   }
 
-  async toast(bool){
+  async toast(bool, mensaje){
 
     if(bool){
       (await this.toastCtrl.create({
         position: 'bottom',
         duration: 3000,
-        message: '¡Producto Eliminado!',
+        message: mensaje,
         color: 'success'
       })).present();
     }else{
       (await this.toastCtrl.create({
         position: 'bottom',
         duration: 3000,
-        message: 'ERROR. No se ha podido eliminar',
+        message: mensaje,
         color: 'danger'
       })).present()
     }

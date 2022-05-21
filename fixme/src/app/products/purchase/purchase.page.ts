@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
 import { Storage } from '@capacitor/storage';
@@ -8,6 +8,8 @@ import { User } from 'src/app/user/interfaces/user';
 import { ComprasService } from '../servicios/compras/compras.service';
 import { Compra } from '../interfaces/compra';
 import { Notificacion } from 'src/app/user/interfaces/notificacion';
+import { ToastController } from '@ionic/angular';
+
 
 
 @Component({
@@ -28,8 +30,8 @@ export class PurchasePage implements OnInit {
   comprado: boolean = false;
   idCompra: string;
 
-  constructor(private productService: ProductosService, private rutaActiva: ActivatedRoute,
-    private usersService: UsersService, private cs: ComprasService) { }
+  constructor(private productService: ProductosService, private rutaActiva: ActivatedRoute, private router: Router,
+    private usersService: UsersService, private cs: ComprasService, private toastCtrl: ToastController,) { }
 
   async ngOnInit() {
 
@@ -76,11 +78,12 @@ export class PurchasePage implements OnInit {
               this.productService.putVendido(this.prod).subscribe({
                 next: (producto) => {
                   this.comprado = true
+                  this.toast(true);
                   this.productService.decrementarCategoria(producto.categoria).subscribe();
 
                   let notificacion: Notificacion = {
-                    info: 'Tu producto ha sido comprado',
-                    title: '¡Se ha comprado!',
+                    info: 'Tu producto ha sido vendido',
+                    title: '¡Se ha vendido!',
                     usuario: producto.usuario,
                     producto: producto
                   }
@@ -93,15 +96,16 @@ export class PurchasePage implements OnInit {
                     producto: producto
                   }
                   this.usersService.addNotification(notificacion2).subscribe();
+                  this.router.navigate(['/usuario/notifications']);
                 },
-                error: (error) => console.log(error)
+                error: (error) => this.toast(false)
               })
             },
-            error: (error) => console.log(error)
+            error: (error) => this.toast(false)
           });
 
         },
-        error: (error) => console.log(error)
+        error: (error) => this.toast(false)
       });
 
     }else{
@@ -109,7 +113,26 @@ export class PurchasePage implements OnInit {
     }
   }
 
-  closeModal(){
-    this.comprado = false;
+  // closeModal(){
+  //   this.comprado = false;
+  // }
+
+  async toast(bool){
+
+    if(bool){
+      (await this.toastCtrl.create({
+        position: 'bottom',
+        duration: 3000,
+        message: '¡Compra realizada con éxito!',
+        color: 'success'
+      })).present();
+    }else{
+      (await this.toastCtrl.create({
+        position: 'bottom',
+        duration: 3000,
+        message: 'ERROR. No se ha podido comprar',
+        color: 'danger'
+      })).present()
+    }
   }
 }
