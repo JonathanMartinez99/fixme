@@ -20,7 +20,8 @@ export class Tab1Page implements OnInit{
   productosScroll: Producto[] = [];
   finalProducts: Producto[] = [];
   categorias: Categoria[];
-  num = 1;
+  max:number = 10;
+  maxPerPage: number = 6;
   finished = false;
   search: string = '';
   filtros: boolean = false;
@@ -28,10 +29,6 @@ export class Tab1Page implements OnInit{
   ngOnInit() {
     this.update();
     this.getCategorias();
-  }
-
-  ionViewWillEnter(){
-
   }
 
   getCategorias(){
@@ -88,25 +85,28 @@ export class Tab1Page implements OnInit{
   loadMoreItems(event) {
     // Simulating an external service call with a timeout
     setTimeout(() => {
-      const max = this.num + 15;
-      for (; this.num < max; this.num++) {
-        this.productosScroll.push(this.productos[this.num]);
+      console.log(this.productosScroll.length + ' ' + this.max)
+      if(this.productosScroll.length < this.max){
+        this.fillProducts();
       }
-      if (this.num >= 120) { // We'll load a maximum of 60 items
+      else{
         this.finished = true;
       }
       if (event !== null) {
         event.target.complete(); // Hide the loader
       }
-    }, event === null ? 0 : 2000);
+    }, event === null ? 0 : 1000);
   }
 
   update() {
-
+    this.maxPerPage = 6;
+    this.finished = false;
     if(this.rutaActiva.snapshot.params.reparados !== 'reparados'){
       this.productService.getProductos().subscribe({
         next: (productos) => {
           this.productos = productos.filter( (p) => p.vendido === false && p.reparado === false);
+          this.fillProducts();
+          this.max = this.productos.length;
           this.getCategorias();
         },
         error: (error) => {console.log(error); this.productos = []}
@@ -115,12 +115,24 @@ export class Tab1Page implements OnInit{
       this.productService.getReparados().subscribe({
         next: (productos) => {
           this.productos = productos.filter( (p) => p.vendido === false);
+          this.fillProducts();
+          this.max = this.productos.length;
           this.getCategorias();
         },
         error: (error) => console.log(error)
       })
     }
 
+  }
+
+  fillProducts(){
+    this.productosScroll = [];
+    for(let i=0; i<this.maxPerPage; i++){
+      if(this.productos[i]){
+        this.productosScroll.push(this.productos[i]);
+      }
+    }
+    this.maxPerPage = this.maxPerPage + 6;
   }
 
   refresh(event: Event) {

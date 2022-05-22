@@ -34,7 +34,7 @@
       </ion-col>
 
       <ng-container *ngIf="!filtros">
-        <ion-col *ngFor="let p of productos | productFilter:search" size="6">
+        <ion-col *ngFor="let p of productosScroll | productFilter:search" size="6">
           <app-product-card [routerLink]="['/producto/detalle', p._id]" [p]="p"></app-product-card>
         </ion-col>
       </ng-container>
