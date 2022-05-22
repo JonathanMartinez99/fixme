@@ -26,7 +26,8 @@
           <ion-slide *ngFor="let c of categorias" (click)="filtroCat(c.nombre)">
               <ion-chip outline color="main2" id="{{c.nombre}}">
                 <ion-label>{{c.nombre}}</ion-label>
-                <ion-label style="margin-left: 3px;">({{c.numProductos}})</ion-label>
+                <ion-label *ngIf="!reparados" style="margin-left: 3px;">({{c.numProductos}})</ion-label>
+                <ion-label *ngIf="reparados" style="margin-left: 3px;">({{c.numReparados}})</ion-label>
               </ion-chip>
           </ion-slide>
           <ion-icon name="chevron-forward-circle-outline"></ion-icon>

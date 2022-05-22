@@ -25,6 +25,7 @@ export class Tab1Page implements OnInit{
   finished = false;
   search: string = '';
   filtros: boolean = false;
+  reparados: boolean = false;
 
   ngOnInit() {
     this.update();
@@ -60,9 +61,17 @@ export class Tab1Page implements OnInit{
 
     let numCat: any = this.categorias.filter((c) => c.nombre === cat);
 
-    if(this.finalProducts.length === 0 || numCat[0].numProductos === 0){
-      this.filtros = false;
-      chip.classList.remove('seleccionada');
+    if(!this.reparados){
+      if(this.finalProducts.length === 0 || numCat[0].numProductos === 0){
+        this.filtros = false;
+        chip.classList.remove('seleccionada');
+      }
+
+    }else{
+      if(this.finalProducts.length === 0 || numCat[0].numReparados === 0){
+        this.filtros = false;
+        chip.classList.remove('seleccionada');
+      }
     }
 
   }
@@ -102,6 +111,7 @@ export class Tab1Page implements OnInit{
     this.maxPerPage = 6;
     this.finished = false;
     if(this.rutaActiva.snapshot.params.reparados !== 'reparados'){
+      this.reparados = false;
       this.productService.getProductos().subscribe({
         next: (productos) => {
           this.productos = productos.filter( (p) => p.vendido === false && p.reparado === false);
@@ -112,6 +122,7 @@ export class Tab1Page implements OnInit{
         error: (error) => {console.log(error); this.productos = []}
       })
     }else{
+      this.reparados = true;
       this.productService.getReparados().subscribe({
         next: (productos) => {
           this.productos = productos.filter( (p) => p.vendido === false);

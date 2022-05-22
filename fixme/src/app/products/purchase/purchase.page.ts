@@ -79,7 +79,11 @@ export class PurchasePage implements OnInit {
                 next: (producto) => {
                   this.comprado = true
                   this.toast(true);
-                  this.productService.decrementarCategoria(producto.categoria).subscribe();
+                  if(producto.reparado){
+                    this.productService.decrementarCategoriaReparado(producto.categoria).subscribe();
+                  }else{
+                    this.productService.decrementarCategoria(producto.categoria).subscribe();
+                  }
 
                   let notificacion: Notificacion = {
                     info: 'Tu producto ha sido vendido',

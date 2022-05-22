@@ -35,3 +35,9 @@ button{
 ion-card-subtitle{
   white-space: nowrap;
 }
+
+.subtitle{
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

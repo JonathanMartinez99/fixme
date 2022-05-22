@@ -124,10 +124,17 @@ export class UserDetailPage implements OnInit {
         this.ps.deleteProducto(p._id).subscribe({
           next: (producto) => {
             this.productos = this.productos.filter(prod => prod._id !== producto._id);
-            this.ps.decrementarCategoria(producto.categoria).subscribe({
-              next: () => this.toast(true, '¡Producto Eliminado!'),
-              error: (error) => console.log(error)
-            })
+            if(producto.reparado){
+              this.ps.decrementarCategoriaReparado(producto.categoria).subscribe({
+                next: () => this.toast(true, '¡Producto Eliminado!'),
+                error: (error) => console.log(error)
+              })
+            }else{
+              this.ps.decrementarCategoria(producto.categoria).subscribe({
+                next: () => this.toast(true, '¡Producto Eliminado!'),
+                error: (error) => console.log(error)
+              })
+            }
           },
           error: (error) => this.toast(false, 'ERROR. No se ha podido eliminar')
         });

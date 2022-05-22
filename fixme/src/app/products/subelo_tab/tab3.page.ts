@@ -67,10 +67,17 @@ export class Tab3Page implements OnInit{
 
     this.productService.postProducto(this.producto).subscribe({
         next: (producto) => {
-          this.productService.incrementarCategoria(producto.categoria).subscribe({
-            next: () => { this.toast(true); this.router.navigate(['/tabs/inicio'])},
-            error: (error) => {this.toast(false); console.log(error)}
-          });
+          if(producto.reparado){
+            this.productService.incrementarCategoriaReparado(producto.categoria).subscribe({
+              next: () => { this.toast(true); this.router.navigate(['/tabs/inicio'])},
+              error: (error) => {this.toast(false); console.log(error)}
+            });
+          }else{
+            this.productService.incrementarCategoria(producto.categoria).subscribe({
+              next: () => { this.toast(true); this.router.navigate(['/tabs/inicio'])},
+              error: (error) => {this.toast(false); console.log(error)}
+            });
+          }
         },
         error: (error) => console.log(error)
       }

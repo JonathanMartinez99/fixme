@@ -64,6 +64,14 @@ export class ProductosService {
     return this.http.put(`categorias/decrementar/${nombre}`, nombre);
   }
 
+  incrementarCategoriaReparado(nombre: string): Observable<any>{
+    return this.http.put(`categorias/incrementar/reparados/${nombre}`, nombre);
+  }
+
+  decrementarCategoriaReparado(nombre: string): Observable<any>{
+    return this.http.put(`categorias/decrementar/reparados/${nombre}`, nombre);
+  }
+
   putProducto(producto: Producto): Observable<Producto>{
     return this.http.put<ProductoResponse>(`${this.SERVER}/${producto._id}`, {producto}).pipe(
       map((response) => response.producto)
