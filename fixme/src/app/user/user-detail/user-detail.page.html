@@ -33,7 +33,7 @@
     </ion-row>
 
     <ion-row>
-      <mgl-map class="map" #MapComponent [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[14]" [center]="[user.lng, user.lat]">
+      <mgl-map (click)="startNavigation()" class="map" #MapComponent [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[14]" [center]="[user.lng, user.lat]">
         <mgl-marker #marker [lngLat]="[user.lng, user.lat]"></mgl-marker>
         <mgl-popup [marker]="marker">
           You are here

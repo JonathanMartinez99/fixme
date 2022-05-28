@@ -6,7 +6,7 @@ import { UsersService } from 'src/app/user/services/users.service';
 import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
 import { Storage } from '@capacitor/storage';
-import { MapComponent } from 'ngx-mapbox-gl';
+import { StartNavigation } from '@proteansoftware/capacitor-start-navigation';
 
 
 @Component({
@@ -89,4 +89,11 @@ export class ProductDetailPage implements OnInit {
     slidesPerView: 1,
     spaceBetween: 1
    };
+
+   startNavigation() {
+    StartNavigation.launchMapsApp({
+    latitude: this.lat,
+    longitude: this.lng,
+    });
+    }
 }

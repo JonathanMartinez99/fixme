@@ -4,6 +4,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Dialog } from '@capacitor/dialog';
 import { Storage } from '@capacitor/storage';
 import { ToastController } from '@ionic/angular';
+import { StartNavigation } from '@proteansoftware/capacitor-start-navigation';
 import { Producto } from 'src/app/products/interfaces/producto';
 import { ProductosService } from 'src/app/products/servicios/productos.service';
 import { User } from '../interfaces/user';
@@ -159,5 +160,12 @@ export class UserDetailPage implements OnInit {
       })).present()
     }
   }
+
+  startNavigation() {
+    StartNavigation.launchMapsApp({
+    latitude: this.user.lat,
+    longitude: this.user.lng,
+    });
+    }
 
 }

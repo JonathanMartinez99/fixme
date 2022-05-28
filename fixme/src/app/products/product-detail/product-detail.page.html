@@ -94,7 +94,7 @@
 
   </ion-item>
 
-  <mgl-map class="map" #MapComponent [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[14]" [center]="[lng, lat]">
+  <mgl-map (click)="startNavigation()" class="map" #MapComponent [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[14]" [center]="[lng, lat]">
     <mgl-marker #marker [lngLat]="[lng, lat]"></mgl-marker>
     <mgl-popup [marker]="marker">
       You are here
