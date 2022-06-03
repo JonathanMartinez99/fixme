@@ -64,7 +64,12 @@ export class AppComponent {
             "title": "Notificaciones",
             "url":'/usuario/notifications',
             "icon":"notifications"
-          }
+          },
+          {
+            "title": "Chats",
+            "url":'/usuario/notifications/chats',
+            "icon":"chatbubbles"
+          },
           );
         this.nav.navigateRoot(['/tabs/inicio']);
       },

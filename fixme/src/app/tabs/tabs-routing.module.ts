@@ -25,6 +25,14 @@ const routes: Routes = [
         loadChildren: () => import('../products/subelo_tab/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'notifications',
+        loadChildren: () => import('../user/notifications/notifications.module').then( m => m.NotificationsPageModule)
+      },
+      {
+        path: 'notifications/:chats',
+        loadChildren: () => import('../user/notifications/notifications.module').then( m => m.NotificationsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/inicio',
         pathMatch: 'full'

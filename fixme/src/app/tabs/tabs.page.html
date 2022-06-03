@@ -2,6 +2,12 @@
 
   <ion-tab-bar slot="bottom">
 
+    <ion-tab-button tab="notifications/chats" (click)="enterChats()">
+      <ion-icon *ngIf="chats" name="chatbubbles-outline" color="main2"></ion-icon>
+      <ion-icon *ngIf="!chats" name="chatbubbles" color="main2"></ion-icon>
+      <ion-label color="main2">Chats</ion-label>
+    </ion-tab-button>
+
     <ion-tab-button tab="subelo" (click)="enterSubelo()">
       <ion-icon *ngIf="subelo" name="add-circle-outline" color="main2"></ion-icon>
       <ion-icon *ngIf="!subelo" name="add-circle" color="main2"></ion-icon>
@@ -17,7 +23,13 @@
     <ion-tab-button tab="favoritos" (click)="enterFavoritos()">
       <ion-icon *ngIf="favoritos" name="heart-outline" color="main2"></ion-icon>
       <ion-icon *ngIf="!favoritos" name="heart" color="main2"></ion-icon>
-      <ion-label color="main2">Favoritos</ion-label>
+      <ion-label color="main2">Favs</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="notifications" (click)="enterNoti()">
+      <ion-icon *ngIf="noti" name="notifications-outline" color="main2"></ion-icon>
+      <ion-icon *ngIf="!noti" name="notifications" color="main2"></ion-icon>
+      <ion-label color="main2">Notis</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>

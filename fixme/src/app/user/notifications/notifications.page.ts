@@ -5,6 +5,7 @@ import { UsersService } from '../services/users.service';
 import { Storage } from '@capacitor/storage';
 import { Compra } from 'src/app/products/interfaces/compra';
 import { ToastController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -21,8 +22,9 @@ export class NotificationsPage implements OnInit {
   codigoCompra: string = '';
   comprado: boolean = false;
   notifOpened: string;
+  sonChats = false;
 
-  constructor(private us: UsersService, private toastCtrl: ToastController) { }
+  constructor(private us: UsersService, private toastCtrl: ToastController, private rutaActiva: ActivatedRoute) { }
 
   async ngOnInit() {
     const {value} = await Storage.get({key: 'token'});
@@ -41,6 +43,10 @@ export class NotificationsPage implements OnInit {
         },
         error: (error) => {console.log(error.error);}
       });
+    }
+
+    if(this.rutaActiva.snapshot.params.chats === 'chats'){
+      this.sonChats = true;
     }
   }
 
