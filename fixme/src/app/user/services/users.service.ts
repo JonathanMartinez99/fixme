@@ -11,6 +11,9 @@ import { Notificacion } from '../interfaces/notificacion';
 import { AddNotificacionResponse } from '../interfaces/add-notif-response';
 import { Compra } from 'src/app/products/interfaces/compra';
 import { CompraResponse } from 'src/app/products/interfaces/compra-response';
+import { Chat } from '../chat/interfaces/chat';
+import { ChatsResponse } from '../chat/interfaces/chatsResponse';
+import { ChatResponse } from '../chat/interfaces/chatResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +44,18 @@ export class UsersService{
   getCompra(id:string):Observable<Compra>{
     return this.http.get<CompraResponse>(`compras/${id}`).pipe(
       map((response) => response.compra)
+    )
+  }
+
+  getChats(me: string, user: string):Observable<Chat[]>{
+    return this.http.get<ChatsResponse>(`chats/${me}/${user}`).pipe(
+      map((response) => response.chats)
+    )
+  }
+
+  addChat(chat:Chat): Observable<Chat>{
+    return this.http.post<ChatResponse>(`chats`, {chat}).pipe(
+      map((response) => response.chat)
     )
   }
 

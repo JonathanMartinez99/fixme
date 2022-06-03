@@ -1,0 +1,48 @@
+.tituloToolbar{
+  color: white;
+  font-size: 120%;
+}
+
+ion-menu-button{
+  color:white;
+  font-size: 190%;
+}
+
+.send{
+  width: 100%;
+  max-height: 50px;
+  border: 1px solid #f7963b;
+  border-radius: 13px;
+}
+.chat-container{
+  width: 100%;
+  height:90%;
+  overflow: scroll;
+  padding-top: 6%;
+}
+.mine{
+background-color: #f7963b;
+color: white;
+margin-left: 5%;
+margin-bottom: 3%;
+margin-right: 5%;
+max-height: fit-content;
+}
+
+.yours{
+  background-color: white;
+  border: 1px solid #f7963b;
+  color: gray;
+  max-height: fit-content;
+  margin-bottom: 3%;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+.new{
+  background-color: #f7963b;
+  color: white;
+  max-height: fit-content;
+  margin-left: 5%;
+  margin-bottom: 3%;
+  margin-right: 5%;
+}

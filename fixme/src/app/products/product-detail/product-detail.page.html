@@ -87,7 +87,7 @@
       <p>{{producto.fecha | date: 'dd/MM/yyyy'}}</p>
     </ion-label>
 
-    <ion-chip *ngIf="me && me.email !== producto.usuario.email" outline color="main2" class="seleccionada">
+    <ion-chip [routerLink]="['/usuario/chat', me._id, producto.usuario._id]" *ngIf="me && me.email !== producto.usuario.email" outline color="main2" class="seleccionada">
       <ion-label>CHAT</ion-label>
       <ion-icon name="chatbubble-ellipses" color="light"></ion-icon>
     </ion-chip>
@@ -111,7 +111,7 @@
     </ion-row>
       <ion-row class="modal-body">
         <ion-col size="6">
-          <ion-button color="main2" expand="block">
+          <ion-button [routerLink]="['/usuario/chat', me._id, producto.usuario._id]" color="main2" expand="block">
             <ion-icon class="modal-icon" name="hand-left" color="light"></ion-icon>
             <ion-label class="btn-modal">A MANO</ion-label>
           </ion-button>

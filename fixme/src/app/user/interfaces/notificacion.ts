@@ -7,5 +7,6 @@ export interface Notificacion {
   info: string;
   title: string;
   usuario: User;
-  producto: Producto;
+  producto?: Producto;
+  chat?: User;
 }

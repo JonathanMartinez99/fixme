@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="main2">
+  <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title *ngIf="user" class="tituloToolbar">{{user.nombre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="chat-container">
+    <ng-container *ngIf="chats">
+      <ion-row *ngFor="let c of chats">
+        <ion-chip [ngClass]="{'mine':  me._id === c.me._id, 'new': me._id === c.me, 'yours' : me._id !== c.me._id }" color="main2">
+          <ion-label>{{c.msg}}</ion-label>
+        </ion-chip>
+      </ion-row>
+    </ng-container>
+  </div>
+
+    <ion-grid>
+      <ion-row class="send">
+        <ion-col size="9">
+          <ion-input [(ngModel)]="msg" type="text"></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-chip (click)="enviar()" style="background-color: #f7963b; padding-right: 20px;" color="main2">
+            <ion-icon name="send" color="light"></ion-icon>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+</ion-content>

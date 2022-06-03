@@ -10,16 +10,33 @@
 <ion-content>
 
   <ion-list *ngIf="notificaciones">
-    <ion-item *ngFor="let n of notificaciones" (click)="openInfo(n)">
-      <ion-avatar slot="start">
-        <img src="{{n.producto.imagen[0]}}" />
-      </ion-avatar>
-      <ion-label>
-        <h2><b>{{n.title}}</b></h2>
-        <p>{{n.info}}</p>
-      </ion-label>
-      <ion-icon style="padding-right: 5%;" name="eye-outline" color="main2"></ion-icon>
-    </ion-item>
+    <ng-container *ngFor="let n of notificaciones">
+      <ng-container *ngIf="n.producto">
+        <ion-item (click)="openInfo(n)">
+          <ion-avatar slot="start">
+            <img src="{{n.producto.imagen[0]}}" />
+          </ion-avatar>
+          <ion-label>
+            <h2><b>{{n.title}}</b></h2>
+            <p>{{n.info}}</p>
+          </ion-label>
+          <ion-icon style="padding-right: 5%;" name="eye-outline" color="main2"></ion-icon>
+        </ion-item>
+      </ng-container>
+
+      <ng-container *ngIf="n.chat">
+        <ion-item [routerLink]="['/usuario/chat', n.usuario, n.chat._id]">
+          <ion-avatar slot="start">
+            <img src="{{n.chat.avatar}}" />
+          </ion-avatar>
+          <ion-label>
+            <h2><b>{{n.title}}</b></h2>
+            <p>{{n.info}}</p>
+          </ion-label>
+          <ion-icon style="padding-right: 5%;" name="eye-outline" color="main2"></ion-icon>
+        </ion-item>
+      </ng-container>
+    </ng-container>
   </ion-list>
 
   <ng-container *ngIf="openInformation && compra">
@@ -64,7 +81,7 @@
       </ion-grid>
 
       <ion-grid *ngIf="comprado">
-        <ion-row style="margin-left:4%;">
+        <ion-row *ngIf="compra[0].producto.reparado" style="margin-left:4%;">
           <ion-col size="12">
             <label><b>ID Producto: </b></label>
             <p>{{compra[0].producto._id}}</p>
