@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
   login(){
 
     this.authService.login(this.user).subscribe({
-      next: () => {this.router.navigate(['tabs/tab1']); this.invalidCred=false;},
+      next: () => {this.router.navigate(['tabs/inicio/reparados']); this.invalidCred=false;},
       error: (error) => {
         this.invalidCred=true;
         this.error = error.error.error

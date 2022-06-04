@@ -7,15 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="user">
+<ion-content *ngIf="user" [ngClass]="{'opened': avatarOpened }">
 
-  <ng-container *ngIf="avatarOpened">
+  <ng-container style="background-color: black;" *ngIf="avatarOpened">
     <ion-item color="main2" class="head-av">
       <ion-title class="tituloToolbar">Avatar</ion-title>
       <ion-icon *ngIf="isMe" (click)="pickFromGallery()" style="font-size: 25px;" slot="end" name="pencil"></ion-icon>
       <ion-icon (click)="closeAvatar()" style="font-size: 35px;" slot="end" color="danger" name="close-sharp"></ion-icon>
     </ion-item>
-    <img src="{{user.avatar}}" alt="" style="width: 100%; height: 100%;">
+    <img src="{{user.avatar}}" alt="" class="avatar-img">
   </ng-container>
 
   <ion-grid *ngIf="!avatarOpened && !openEdit">

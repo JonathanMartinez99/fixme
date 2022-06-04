@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from 'src/app/user/services/users.service';
-import { Storage } from '@capacitor/storage';
-import { User } from 'src/app/user/interfaces/user';
 import { Producto } from '../interfaces/producto';
 import { ProductosService } from '../servicios/productos.service';
 import { Categoria } from '../interfaces/categoria';
-import { IonInfiniteScroll, IonSlides } from '@ionic/angular';
+import { IonSlides } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -11,11 +11,15 @@
 
   <div class="chat-container">
     <ng-container *ngIf="chats">
+      <ion-grid>
       <ion-row *ngFor="let c of chats">
-        <ion-chip [ngClass]="{'mine':  me._id === c.me._id, 'new': me._id === c.me, 'yours' : me._id !== c.me._id }" color="main2">
-          <ion-label>{{c.msg}}</ion-label>
-        </ion-chip>
+        <ion-col size="12" [ngClass]="{'mine-col':  me._id === c.me._id, 'new-col': me._id === c.me }">
+          <ion-chip [ngClass]="{'mine':  me._id === c.me._id, 'new': me._id === c.me, 'yours' : me._id !== c.me._id }" color="main2">
+            <ion-label>{{c.msg}}</ion-label>
+          </ion-chip>
+        </ion-col>
       </ion-row>
+      </ion-grid>
     </ng-container>
   </div>
 

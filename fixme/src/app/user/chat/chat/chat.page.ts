@@ -60,7 +60,7 @@ export class ChatPage implements OnInit {
         if(this.chats.length === 0){
           let noti: Notificacion = {
             title: this.me.nombre,
-            info: 'Han iniciado una conversación contigo',
+            info: '¡Te están hablando!',
             usuario: this.user,
             chat: this.me
           }
@@ -71,7 +71,7 @@ export class ChatPage implements OnInit {
 
           let noti2: Notificacion = {
             title: this.user.nombre,
-            info: 'Has iniciado una conversación',
+            info: 'Conversación iniciada',
             usuario: this.me,
             chat: this.user
           }
