@@ -6,6 +6,8 @@ import { Storage } from '@capacitor/storage';
 import { Compra } from 'src/app/products/interfaces/compra';
 import { ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@capacitor/clipboard';
+
 
 @Component({
   selector: 'app-notifications',
@@ -78,8 +80,25 @@ export class NotificationsPage implements OnInit {
         },
         error: (error) => this.toast(false)
       })
+    }else{
+      this.toast(false)
     }
   }
+
+  async copy(text) {
+    await Clipboard.write({
+    // eslint-disable-next-line id-blacklist
+    string: text
+    });
+    const toast = await this.toastCtrl.create({
+    message: '¡Copiado!',
+    duration: 1500,
+    position: 'bottom',
+    color: 'success'
+    });
+    toast.present();
+    }
+
 
   async toast(bool){
 

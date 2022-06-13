@@ -64,7 +64,7 @@ export class Tab3Page implements OnInit{
     this.producto.imagen = this.imagenes;
     console.log(this.producto);
 
-
+    if(this.imagenes.length > 0){
     this.productService.postProducto(this.producto).subscribe({
         next: (producto) => {
           if(producto.reparado){
@@ -92,6 +92,10 @@ export class Tab3Page implements OnInit{
         },
         error: (error) => console.log(error)
       })
+    }
+    }
+    else{
+      this.toast(false)
     }
   }
 
