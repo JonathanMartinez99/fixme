@@ -60,18 +60,28 @@ export class Tab1Page implements OnInit{
     let numCat: any = this.categorias.filter((c) => c.nombre === cat);
 
     if(!this.reparados){
-      if(this.finalProducts.length === 0 || numCat[0].numProductos === 0){
+      if(this.finalProducts.length === 0 && numCat[0].numProductos === 0){
         this.filtros = false;
+        chip.classList.remove('seleccionada');
+      }else if(this.finalProducts.length > 0 && numCat[0].numProductos === 0){
+        this.filtros = true;
         chip.classList.remove('seleccionada');
       }
 
     }else{
-      if(this.finalProducts.length === 0 || numCat[0].numReparados === 0){
+      if(this.finalProducts.length === 0 && numCat[0].numReparados === 0){
         this.filtros = false;
+        chip.classList.remove('seleccionada');
+      }else if(this.finalProducts.length > 0 && numCat[0].numReparados === 0){
+        this.filtros = true;
         chip.classList.remove('seleccionada');
       }
     }
 
+    if(this.finalProducts.length === 0){
+      this.filtros = false;
+    }
+    console.log(this.finalProducts)
   }
 
   @ViewChild('mySlider')  slides: IonSlides;
